@@ -145,14 +145,18 @@
       return err.message || "Dieses Feld konnte nicht verarbeitet werden.";
     }
 
-    function succeed() {
-      form.hidden = true;
-      status.textContent = "Danke, Ihre Nachricht ist angekommen. Ich melde mich innerhalb von zwei Werktagen bei Ihnen \u2014 mit einem Terminvorschlag für die 30 Minuten.";
-      status.className = "form__status";
-      status.hidden = false;
-      status.focus && status.setAttribute("tabindex", "-1");
-      status.focus && status.focus();
-    }
+function succeed() {
+  form.style.transition = 'opacity 0.4s ease';
+  form.style.opacity = '0';
+  setTimeout(function() {
+    form.hidden = true;
+    status.innerHTML = '<svg width="32" height="32" viewBox="0 0 30 30" fill="none" aria-hidden="true"><path d="M4 14.5 25.5 5 17 26 13.5 17 4 14.5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M13.5 17 25.5 5" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg><p>Ihre Nachricht ist angekommen. Ich freue mich auf unser Gespräch.</p>';
+    status.className = "form__status form__status--success";
+    status.hidden = false;
+    status.setAttribute("tabindex", "-1");
+    status.focus();
+  }, 400);
+}
 
     function fail(message) {
       status.textContent = message;
