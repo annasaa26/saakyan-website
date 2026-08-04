@@ -32,7 +32,7 @@ try {
     $mail->Host       = 'smtp.hostinger.com';
     $mail->SMTPAuth   = true;
     $mail->Username   = 'noreply@saakyan.ai';
-    $mail->Password   = 'DEIN_PASSWORT_HIER';  // <-- hier dein Passwort eintragen
+    $mail->Password   = 'fhhj&3&V-B$2ZA8';  // <-- hier dein Passwort eintragen
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
     $mail->CharSet    = 'UTF-8';
