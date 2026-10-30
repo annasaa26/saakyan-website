@@ -1,0 +1,971 @@
+/* saakyan.ai, gemeinsame Gestaltung aller Seiten (Startseite, Leistungen und Preise, Impressum, Datenschutz)
+   Stand 28.10.2026. Hervorgegangen aus entwuerfe/relaunch-2610/startseite/startseite.css.
+   Richtung „Die Beratungsmappe“: Jeder Abschnitt ist ein Registerblatt mit eigenem Reiter.
+   Wird nach assets/css/tokens.css eingebunden. tokens.css bleibt unverändert (ältere Entwürfe nutzen sie),
+   die endgültigen Farbwerte vom 28.10. stehen deshalb hier als :root-Überschreibungen.
+   Kontraste: --text auf --bg 11,5:1, --brand auf --bg 7,7:1, --text auf Koralle 5,5:1.
+   Koralle nie als Schriftfarbe auf hellem Grund und nie mit weißer Schrift. #fff nur für Formularfelder.
+
+   Gliederung: Grundlagen · Kopf · Einstieg · Registerblätter · Startseite · Fuß · Bewegung ·
+   Breiten · Leistungen und Preise · Rechtsseiten */
+
+/* ---------- Endgültige Farben (Entscheidung 28.10.2026) ---------- */
+:root {
+  --bg: #FAF8F5;         /* Hintergrund, 11,5:1 mit --text, 7,7:1 mit --brand */
+  --surface: #F2EEEA;    /* Zettel, Registerblätter */
+  --text: #403233;       /* Fließtext und Überschriften */
+  --brand: #215663;      /* Petrol */
+  --brand-dark: #17424F; /* Petrol dunkel, Fuß */
+  --accent: #E89B7C;     /* Koralle: Text darauf immer --text (5,5:1); auf --brand-dark 4,9:1 nur Grafik */
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-ui: 240ms;
+  --t-reveal: 800ms;
+
+  /* Eine Skala für alle vier Seiten (Überarbeitung 4b): H1 > H2/Reiter > H3 > Text.
+     Bei 1280 px etwa: H1 Startseite 58, H1 Unterseiten 58, Reiter/H2 29, H3 24, Aussage 24, Text 18. */
+  --text-display: clamp(2.125rem, 1.2rem + 3.6vw, 4.125rem);   /* H1 Startseite */
+  --text-h1-unter: clamp(2.125rem, 1rem + 3.3vw, 3.625rem);   /* H1 Leistungen, Impressum, Datenschutz */
+  --text-reiter: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem);   /* Reiter und H2 */
+  --text-gross: clamp(1.25rem, 1.1rem + 0.45vw, 1.5rem);      /* Aussagesätze */
+  --text-h3-v4: clamp(1.1875rem, 1.05rem + 0.45vw, 1.5rem);   /* H3 */
+
+  --band: 56px;
+  --reiter-hoch: 44px;
+  --titel-hoch: 60px;
+
+  /* Reiterpositionen als Anteil der Inhaltsbreite (0 = links, 1 = rechts bündig).
+     Der Reiter verschiebt sich um denselben Anteil seiner eigenen Breite zurück,
+     dadurch ragt er in keiner Breite über den Rand. */
+  --x-anfang: 0.3;
+  --x-ueber: 0.5;
+  --x-fragen: 0.7;
+  --x-kontakt: 0.92;
+
+  --zack-unten: polygon(0 0, 100% 0, 100% 100%, 97.5% calc(100% - 10px), 95% 100%, 92.5% calc(100% - 10px), 90% 100%, 87.5% calc(100% - 10px), 85% 100%, 82.5% calc(100% - 10px), 80% 100%, 77.5% calc(100% - 10px), 75% 100%, 72.5% calc(100% - 10px), 70% 100%, 67.5% calc(100% - 10px), 65% 100%, 62.5% calc(100% - 10px), 60% 100%, 57.5% calc(100% - 10px), 55% 100%, 52.5% calc(100% - 10px), 50% 100%, 47.5% calc(100% - 10px), 45% 100%, 42.5% calc(100% - 10px), 40% 100%, 37.5% calc(100% - 10px), 35% 100%, 32.5% calc(100% - 10px), 30% 100%, 27.5% calc(100% - 10px), 25% 100%, 22.5% calc(100% - 10px), 20% 100%, 17.5% calc(100% - 10px), 15% 100%, 12.5% calc(100% - 10px), 10% 100%, 7.5% calc(100% - 10px), 5% 100%, 2.5% calc(100% - 10px), 0 100%);
+  --zack-oben: polygon(0 14px, 2.083% 0, 4.167% 14px, 6.25% 0, 8.333% 14px, 10.417% 0, 12.5% 14px, 14.583% 0, 16.667% 14px, 18.75% 0, 20.833% 14px, 22.917% 0, 25% 14px, 27.083% 0, 29.167% 14px, 31.25% 0, 33.333% 14px, 35.417% 0, 37.5% 14px, 39.583% 0, 41.667% 14px, 43.75% 0, 45.833% 14px, 47.917% 0, 50% 14px, 52.083% 0, 54.167% 14px, 56.25% 0, 58.333% 14px, 60.417% 0, 62.5% 14px, 64.583% 0, 66.667% 14px, 68.75% 0, 70.833% 14px, 72.917% 0, 75% 14px, 77.083% 0, 79.167% 14px, 81.25% 0, 83.333% 14px, 85.417% 0, 87.5% 14px, 89.583% 0, 91.667% 14px, 93.75% 0, 95.833% 14px, 97.917% 0, 100% 14px, 100% 100%, 0 100%);
+  --trapez: polygon(14px 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
+}
+
+/* ---------- Grundlagen ---------- */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 152px; } /* Kopfzeile 76 px + Reiterhöhe + Luft */
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  font-weight: var(--weight-regular);
+  overflow-x: clip;
+}
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3, p, ul, ol, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+a { color: var(--brand); text-underline-offset: 0.2em; text-decoration-thickness: 0.07em; }
+::selection { background: var(--brand); color: var(--bg); }
+:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); border-radius: 2px; }
+input, textarea, button { font: inherit; color: inherit; }
+html { scrollbar-color: var(--line-field) var(--bg); }
+
+.skip {
+  position: absolute; left: var(--gutter); top: -100px; z-index: 100;
+  background: var(--brand-dark); color: var(--on-dark);
+  padding: var(--space-3) var(--space-4); border-radius: var(--radius-control);
+}
+.skip:focus { top: var(--space-3); }
+
+.wortmarke {
+  font-family: var(--font-logo);
+  -webkit-text-stroke: 0.35px currentColor;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.625rem;
+  line-height: 1;
+  letter-spacing: 0;
+  display: inline-flex; align-items: center; min-height: 44px; /* Tippfläche, Schrift unverändert */
+}
+/* Nur der Punkt in Koralle (Logo, Kontrastregel gilt für Logos nicht) */
+.wortmarke__punkt { color: var(--accent); -webkit-text-stroke-color: var(--accent); }
+
+/* ---------- Knöpfe ---------- */
+.knopf {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-control);
+  font-weight: var(--weight-semibold);
+  font-size: 1.125rem;
+  line-height: 1.2;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease, color var(--t-hover) ease, border-color var(--t-hover) ease;
+}
+.knopf:active { transform: scale(0.97); }
+.knopf--koralle { background: var(--accent); color: var(--on-accent); }
+.knopf--linie { background: transparent; color: var(--brand); border-color: var(--brand); }
+.knopf--dunkel { background: var(--brand-dark); color: var(--on-dark); }
+@media (hover: hover) and (pointer: fine) {
+  .knopf--koralle:hover { background: var(--brand-dark); color: var(--on-dark); }
+  .knopf--linie:hover { background: var(--brand); color: var(--bg); }
+  .knopf--dunkel:hover { background: var(--text); }
+}
+
+.textlink {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--brand); font-weight: var(--weight-semibold);
+  text-decoration: underline; text-decoration-color: var(--accent);
+  text-decoration-thickness: 3px; text-underline-offset: 0.3em;
+  transition: text-decoration-color var(--t-hover) ease;
+}
+@media (hover: hover) and (pointer: fine) { .textlink:hover { text-decoration-color: var(--brand); } }
+
+/* ---------- Kopf ---------- */
+.kopf {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--bg);
+}
+.kopf__inner {
+  max-width: var(--page-max); margin: 0 auto;
+  padding: var(--space-3) var(--gutter);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-5);
+  min-height: 76px;
+}
+.kopf__nav { display: flex; align-items: center; gap: var(--space-6); }
+.kopf__nav ul { display: flex; gap: var(--space-5); }
+.kopf__nav ul a {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--text); text-decoration: none; font-size: 1.125rem;
+  background-image: none;
+  position: relative;
+}
+.kopf__nav ul a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 3px;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+  transition: transform var(--t-ui) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .kopf__nav ul a:hover::after { transform: scaleX(1); } }
+.kopf__cta { min-height: 44px; font-size: 1rem; padding: 0 var(--space-4); }
+.kopf__menu { display: none; }
+
+@media (max-width: 1080px) {
+  .kopf__menu {
+    display: inline-flex; align-items: center; gap: var(--space-3);
+    min-height: 48px; padding: 0 var(--space-4);
+    background: transparent; border: 2px solid var(--brand); border-radius: var(--radius-control);
+    color: var(--brand); font-weight: var(--weight-semibold); cursor: pointer;
+  }
+  .kopf__menu-icon { display: grid; gap: 5px; width: 18px; }
+  .kopf__menu-icon span { display: block; height: 2px; background: currentColor; transition: transform var(--t-ui) var(--ease-out); }
+  .kopf__menu[aria-expanded="true"] .kopf__menu-icon span:first-child { transform: translateY(3.5px) rotate(45deg); }
+  .kopf__menu[aria-expanded="true"] .kopf__menu-icon span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+  .kopf__nav {
+    position: absolute; left: 0; right: 0; top: 100%;
+    flex-direction: column; align-items: stretch; gap: var(--space-4);
+    padding: var(--space-4) var(--gutter) var(--space-6);
+    background: var(--bg); box-shadow: var(--shadow-float); /* taste-skill-ignore: aufgeklapptes Menü schwebt */
+  }
+  .js .kopf__nav { display: none; }
+  .js .kopf__nav.is-open { display: flex; animation: menu-auf var(--t-ui) var(--ease-out); }
+  .kopf__nav ul { flex-direction: column; gap: 0; }
+  .kopf__nav ul a { min-height: 52px; font-size: 1.125rem; width: fit-content; min-width: 44px; } /* Unterstreichung nur so breit wie die Schrift */
+  .kopf__cta { min-height: var(--tap-min); }
+  .kopf { position: sticky; }
+}
+html:not(.js) .kopf__menu { display: none; }
+@media (max-width: 1080px) {
+  html:not(.js) .kopf__nav { position: static; box-shadow: none; padding: 0; } /* taste-skill-ignore: hebt Schatten auf */
+  html:not(.js) .kopf__inner { flex-wrap: wrap; }
+}
+@keyframes menu-auf { from { opacity: 0; transform: translateY(-6px); } }
+
+/* ---------- Einstieg ---------- */
+.einstieg {
+  max-width: var(--page-max); margin: 0 auto;
+  padding: clamp(16px, 3vw, 40px) var(--gutter) 0;
+  position: relative;
+}
+.kurzzeile {
+  color: var(--brand); font-weight: var(--weight-semibold); font-size: 1.125rem;
+  margin-bottom: var(--space-4);
+}
+.einstieg__titel {
+  font-family: var(--font-display);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-display);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--heading);
+}
+.zeile { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+.zeile > span { display: block; }
+.einstieg__unten { margin-top: var(--space-6); max-width: 34rem; }
+.einstieg__absatz { font-size: var(--text-lead); line-height: 1.5; max-width: 40ch; }
+.einstieg__knoepfe { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+.nobr { white-space: nowrap; }
+
+/* Einstieg als Raster (Überarbeitung 4b). Kurzzeile, Titel, Absatz und Knöpfe sind eigene Rasterzellen.
+   Breit: Text links, Anna rechts über die ganze Höhe, Unterkante auf der Kante des ersten Blatts.
+   Schmal: derselbe Aufbau verkleinert. Kurzzeile und Titel über die volle Breite, darunter Absatz links und
+   Oberkörper-Foto rechts, Knöpfe über die volle Breite.
+   Die Fotos laufen in die Seitenfarbe aus: kein Rahmen, keine Rundung, kein Schatten, kein Filter. */
+.einstieg {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(50%, 320px);
+  grid-template-areas: "kurz kurz" "titel titel" "absatz person" "knoepfe knoepfe";
+  column-gap: var(--space-4);
+  padding-top: clamp(8px, 2vw, 16px);
+  padding-bottom: calc(var(--titel-hoch) + var(--space-6));
+}
+.einstieg__text, .einstieg__unten, .einstieg__links { display: contents; }
+.einstieg__text > .kurzzeile { grid-area: kurz; }
+.einstieg__text > .einstieg__titel { grid-area: titel; }
+.einstieg__absatz { grid-area: absatz; align-self: center; margin-top: var(--space-5); }
+.einstieg__knoepfe { grid-area: knoepfe; }
+.einstieg__person {
+  grid-area: person; align-self: end; justify-self: end;
+  width: 100%; margin-top: var(--space-5);
+  pointer-events: none;
+}
+.einstieg__person img { width: 100%; }
+@media (max-width: 600px) {
+  .einstieg__absatz { font-size: var(--text-body); line-height: 1.55; }
+}
+/* Ab 901 px: Text links, Anna rechts über die ganze Höhe. Fotobreite an die Fensterhöhe gekoppelt
+   (Foto 1010 × 1420, Höhe = Breite × 1,41), damit der Reiter „Wobei ich unterstütze“ bei 1280 × 800 ganz
+   im ersten Bildschirm steht. Die Titelgröße folgt der freien Spaltenbreite, damit „Verwaltungsaufwand.“
+   nie überläuft (13,2 = Breite der längsten Zeile je Pixel Schriftgröße, mit Reserve).
+   Das Foto ragt um einen Teil des Seitenrands nach rechts hinaus (Bildgrund in Seitenfarbe). */
+@media (min-width: 901px) {
+  .einstieg {
+    --pw: min(34.5vw, 480px, max(300px, (100svh - 110px) / 1.414));
+    --bleed: calc(var(--gutter) * 0.8);
+    grid-template-columns: minmax(0, 1fr) calc(var(--pw) - var(--bleed));
+    grid-template-rows: auto auto auto auto 1fr;
+    grid-template-areas: "kurz person" "titel person" "absatz person" "knoepfe person" ". person";
+    column-gap: var(--space-5);
+    padding-bottom: 0;
+  }
+  .einstieg__titel {
+    font-size: min(var(--text-display), calc((min(100vw, var(--page-max)) - 2 * var(--gutter) - var(--pw) + var(--bleed) - var(--space-5)) / 13.2));
+    line-height: 1.06;
+  }
+  .einstieg__absatz { margin-top: var(--space-6); max-width: 40ch; align-self: start; }
+  .einstieg__knoepfe { padding-bottom: calc(var(--titel-hoch) + var(--space-6)); }
+  .einstieg__person { width: var(--pw); margin: 0 calc(var(--bleed) * -1) 0 0; }
+}
+
+/* ---------- Registerblätter ---------- */
+.blatt { position: relative; z-index: 2; }
+.blatt__kante {
+  position: relative; height: 16px; background: var(--c);
+}
+.reiter--titel, .blatt__kante > .reiter {
+  position: absolute; bottom: 100%;
+  left: calc(var(--gutter) + (100% - 2 * var(--gutter)) * var(--x, 0));
+  transform: translateX(calc(var(--x, 0) * -100%));
+  max-width: calc(100% - 2 * var(--gutter));
+  height: var(--titel-hoch);
+  display: inline-flex; align-items: center;
+  padding: 0 32px;
+  background: var(--c); color: var(--ink);
+  clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 100%, 0 100%);
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-reiter); line-height: 1; letter-spacing: -0.01em;
+  white-space: nowrap; margin: 0;
+}
+.blatt__kante { max-width: none; }
+.blatt--bereiche { --c: var(--surface); --ink: var(--brand); --x: 0; }
+.blatt--anfang { --c: var(--surface); --ink: var(--brand); --x: var(--x-anfang); margin-top: var(--section-gap); }
+.blatt--ueber { --c: var(--brand); --ink: var(--bg); --x: var(--x-ueber); margin-top: var(--section-gap); }
+.blatt--fragen { --c: var(--accent); --ink: var(--on-accent); /* Koralle als Akzent, Schrift --text 5,5:1 */ --x: var(--x-fragen); margin-top: var(--section-gap); }
+.blatt--kontakt { --c: var(--surface); --ink: var(--brand); /* Reiter wie „Wobei ich unterstütze“, Anfrageblatt bleibt Koralle */ --x: var(--x-kontakt); margin-top: var(--section-gap); }
+
+.blatt > div:not(.blatt__kante):not(.stimmen) {
+  max-width: var(--page-max); margin-inline: auto; padding-inline: var(--gutter);
+}
+
+/* ---------- Wobei ich unterstütze: der Aufgabenzettel ---------- */
+.bereiche {
+  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(32px, 5vw, 80px);
+  padding-top: clamp(48px, 6vw, 88px);
+}
+.bereiche__seite { align-self: start; position: sticky; top: 120px; }
+.bereiche__einleitung { font-family: var(--font-display); font-size: var(--text-gross); line-height: 1.2; letter-spacing: -0.01em; }
+.bereiche__zeile { margin-top: var(--space-6); color: var(--text); max-width: 34ch; }
+.bereiche__seite .textlink { margin-top: var(--space-4); }
+
+.zettel {
+  position: relative;
+  margin-right: 24px;
+}
+.zettel::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: var(--surface);
+  clip-path: var(--zack-unten);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+.zettel__liste { position: relative; z-index: 1; padding: clamp(16px, 2vw, 24px) 0 clamp(32px, 3vw, 48px); }
+.aufgabe {
+  position: relative;
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: var(--space-5);
+  padding: clamp(18px, 2vw, 26px) clamp(20px, 3vw, 40px);
+  transition: opacity var(--t-hover) ease;
+}
+.aufgabe + .aufgabe { margin-top: 0; }
+.aufgabe h3 {
+  grid-column: 2; font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-h3-v4); line-height: 1.2; letter-spacing: -0.01em; color: var(--heading);
+}
+.aufgabe p { grid-column: 2; margin-top: var(--space-2); max-width: 52ch; }
+.aufgabe__box {
+  position: absolute; opacity: 0; width: 44px; height: 44px; margin: 0;
+  left: clamp(20px, 3vw, 40px); top: clamp(18px, 2vw, 26px);
+}
+.aufgabe__flaeche { position: absolute; inset: 0; z-index: 2; cursor: pointer; }
+.aufgabe__haken {
+  grid-column: 1; grid-row: 1 / span 2; align-self: start;
+  width: 44px; height: 44px; border-radius: var(--radius-control);
+  border: 2px solid var(--brand); background: var(--bg);
+  position: relative; margin-top: -4px;
+  transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
+}
+.aufgabe__haken::after {
+  content: ""; position: absolute; left: 14px; top: 7px; width: 11px; height: 20px;
+  border: solid var(--bg); border-width: 0 3px 3px 0;
+  transform: rotate(45deg) scale(0.4); opacity: 0;
+  transition: transform var(--t-ui) var(--ease-out), opacity var(--t-hover) ease;
+}
+.aufgabe__box:checked ~ .aufgabe__haken { background: var(--brand); }
+.aufgabe__box:checked ~ .aufgabe__haken::after { transform: rotate(45deg) scale(1); opacity: 1; }
+.aufgabe__box:focus-visible ~ .aufgabe__haken { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.aufgabe:active .aufgabe__haken { transform: scale(0.94); }
+
+/* Die Markierungsfahne ragt aus der Blattkante */
+.fahne {
+  position: absolute; right: -24px; top: clamp(22px, 2.4vw, 30px);
+  width: 64px; height: 30px;
+  background: var(--accent);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform var(--t-ui) var(--ease-out);
+  z-index: 0;
+}
+.aufgabe__box:checked ~ .fahne { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) {
+  .aufgabe:hover { background: var(--bg); } /* statt Abdimmen der übrigen Zeilen (Kontrast bleibt voll) */
+  .aufgabe:hover .fahne { transform: scaleX(0.35); }
+  .aufgabe:hover .aufgabe__box:checked ~ .fahne { transform: scaleX(1); }
+  .aufgabe:hover .aufgabe__haken { background: var(--surface); }
+  .aufgabe:hover .aufgabe__box:checked ~ .aufgabe__haken { background: var(--brand-dark); }
+}
+
+/* ---------- So fängt es an: der Laufzettel ---------- */
+.anfang {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 6vw, 96px);
+  padding-top: clamp(48px, 5vw, 80px);
+  align-items: start;
+}
+.anfang__bild { position: sticky; top: 120px; }
+.anfang__rahmen { aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius-media); background: var(--surface); }
+.anfang__rahmen img { width: 100%; height: 100%; object-fit: cover; }
+.laufzettel {
+  position: relative;
+  background: var(--surface);
+  clip-path: var(--zack-unten);
+  padding: clamp(28px, 4vw, 56px) clamp(24px, 4vw, 56px) clamp(48px, 5vw, 72px);
+  max-width: 640px;
+}
+.laufzettel__punkt + .laufzettel__punkt {
+  margin-top: var(--space-7); padding-top: var(--space-7);
+  border-top: 5px dotted var(--line-field);
+}
+.laufzettel h3 {
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-h3-v4); line-height: 1.2; color: var(--heading); margin-bottom: var(--space-3);
+}
+.laufzettel__bafa {
+  position: relative;
+  margin-top: var(--space-5);
+  background: var(--bg);
+  padding: var(--space-5) var(--space-5) var(--space-5);
+  border-radius: var(--radius-control);
+  font-size: var(--text-small); line-height: 1.55; color: var(--text);
+}
+/* Lesezeichen ragt oben aus dem Kästchen und endet im oberen Innenabstand (24 px), also immer über der ersten Textzeile */
+.laufzettel__bafa::before {
+  content: ""; position: absolute; top: -14px; right: 24px; width: 22px; height: 36px;
+  background: var(--accent);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 8px), 0 100%);
+}
+
+/* ---------- Über mich: der Brief ---------- */
+.ueber {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 6vw, 96px);
+  padding-top: clamp(48px, 5vw, 80px);
+  align-items: center;
+}
+.ueber__rahmen { aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius-media); background: var(--surface); }
+/* Foto 760 × 950 (4:5) passt ohne Beschnitt in den Rahmen; Kopf mit Luft darüber, keine Scrollbewegung */
+.ueber__rahmen img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; }
+.brief { max-width: 640px; }
+.brief__kopf { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); }
+.brief__avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: 50% 33%; transform: scale(1); }
+.brief__name { font-family: var(--font-display); font-style: italic; font-size: 1.375rem; color: var(--brand); }
+.brief__text p { font-size: var(--text-body); line-height: 1.62; max-width: 60ch; }
+.brief__text p + p { margin-top: var(--space-5); }
+/* Einleitung: etwas größer, mit Koralle-Strich als visuellem Halt (auch unter dem Foto auf dem Handy) */
+.brief__text p:first-child { font-size: 1.25rem; line-height: 1.55; padding-left: 20px; box-shadow: inset 4px 0 0 var(--accent); }
+.brief__abriss {
+  position: relative;
+  margin-top: var(--space-7);
+  background: var(--brand); color: var(--bg);
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+  border-top: 5px dotted var(--bg);
+  padding: var(--space-5) var(--space-6);
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3) var(--space-6);
+}
+.brief__abriss li {
+  font-weight: var(--weight-semibold); font-size: var(--text-body); line-height: 1.35;
+  padding-left: 22px; position: relative;
+}
+.brief__abriss li::before {
+  content: ""; position: absolute; left: 0; top: 0.45em; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ---------- Häufige Fragen ---------- */
+.fragen {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(24px, 4vw, 64px); row-gap: var(--space-2);
+  padding-top: clamp(48px, 5vw, 80px);
+  align-items: start;
+}
+.frage { border-radius: var(--radius-card); transition: background-color var(--t-hover) ease; }
+.frage summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4);
+  padding: var(--space-5) var(--space-5);
+  min-height: 48px;
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-h3-v4); line-height: 1.3; color: var(--heading);
+  border-radius: var(--radius-card);
+}
+.frage summary::-webkit-details-marker { display: none; }
+.frage__zeichen {
+  flex: none; position: relative; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--surface); margin-top: 0;
+  transition: background-color var(--t-hover) ease, transform var(--t-ui) var(--ease-out);
+}
+.frage__zeichen::before, .frage__zeichen::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 2px; margin: -1px 0 0 -7px;
+  background: var(--brand); transition: transform var(--t-ui) var(--ease-out);
+}
+.frage__zeichen::after { transform: rotate(90deg); }
+.frage[open] { background: var(--surface); }
+.frage[open] .frage__zeichen { background: var(--accent); }
+.frage[open] .frage__zeichen::before, .frage[open] .frage__zeichen::after { background: var(--on-accent); }
+.frage[open] .frage__zeichen::after { transform: rotate(0deg); }
+.frage__antwort { padding: 0 var(--space-5) var(--space-5); max-width: 62ch; }
+@media (hover: hover) and (pointer: fine) {
+  .frage:not([open]) summary:hover { background: var(--surface); }
+  .frage summary:hover .frage__zeichen { transform: rotate(90deg); }
+}
+
+/* ---------- Kontakt: das Anfrageblatt ---------- */
+.blatt--kontakt { margin-bottom: var(--section-gap); }
+.blatt--kontakt > .coupon { margin-top: clamp(40px, 4vw, 56px); }
+.coupon {
+  position: relative;
+  max-width: calc(var(--page-max) - 2 * var(--gutter)) !important;
+  margin-inline: max(var(--gutter), calc((100% - var(--page-max)) / 2 + var(--gutter))) !important;
+  padding: 0 !important;
+  background: var(--accent); color: var(--on-accent);
+  border-radius: var(--radius-card);
+  display: grid; grid-template-columns: minmax(0, 46fr) minmax(0, 54fr);
+}
+.coupon::before, .coupon::after {
+  content: ""; position: absolute; left: 46%; width: 32px; height: 32px; margin-left: -16px;
+  border-radius: 50%; background: var(--bg);
+}
+.coupon::before { top: -16px; }
+.coupon::after { bottom: -16px; }
+.coupon__links {
+  padding: clamp(32px, 4vw, 56px);
+  display: flex; flex-direction: column; gap: var(--space-5);
+}
+.coupon__titel {
+  font-family: var(--font-display); font-weight: var(--weight-regular);
+  font-size: clamp(1.625rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.12; letter-spacing: -0.015em; color: var(--text);
+  text-wrap: balance;
+}
+.coupon__text { max-width: none; } /* volle Spaltenbreite: links und rechts gleicher Abstand wie beim Formular */
+/* Direkte Kontaktwege: Label links (14 px), Adresse rechts in einer Spalte, ohne Trennlinien */
+.coupon__direkt { font-weight: var(--weight-semibold); margin-bottom: var(--space-1); }
+.kontaktwege > div {
+  display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); align-items: center; column-gap: var(--space-3);
+}
+.kontaktwege dt { font-size: 0.875rem; font-weight: var(--weight-semibold); letter-spacing: 0.02em; }
+.coupon__telefon a { color: var(--text); font-weight: var(--weight-semibold); text-decoration-thickness: 2px; display: inline-flex; min-height: 44px; align-items: center; overflow-wrap: anywhere; }
+.coupon__hinweis { font-size: var(--text-small); line-height: 1.5; }
+.coupon__hinweis a { color: var(--text); text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+.coupon__form {
+  padding: clamp(32px, 4vw, 56px);
+  border-left: 5px dotted var(--bg);
+  display: flex; flex-direction: column; gap: var(--space-4);
+}
+.coupon__fahnen { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.coupon__fahnen li {
+  background: var(--bg); color: var(--brand);
+  padding: var(--space-2) var(--space-5);
+  font-weight: var(--weight-semibold); font-size: var(--text-label); line-height: 1.3;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
+  animation: fahne-rein var(--t-ui) var(--ease-out);
+}
+@keyframes fahne-rein { from { transform: translateX(-12px); opacity: 0; } }
+.feld { display: flex; flex-direction: column; gap: var(--space-2); }
+.feld label { font-weight: var(--weight-semibold); font-size: var(--text-body); color: var(--text); }
+.feld input, .feld textarea {
+  width: 100%; min-height: 52px;
+  background: #fff; color: var(--text);
+  border: 2px solid var(--brand-dark);
+  border-radius: var(--radius-control);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-body);
+  transition: border-color var(--t-hover) ease;
+}
+.feld textarea { resize: vertical; min-height: 128px; line-height: 1.5; }
+.feld input:focus-visible, .feld textarea:focus-visible { outline: 3px solid var(--brand-dark); outline-offset: 2px; }
+.feld [aria-invalid="true"] { border-color: var(--error); }
+.feld__hinweis { font-size: var(--text-small); color: var(--text); }
+.feld__fehler {
+  background: var(--error-bg); color: var(--error);
+  font-size: var(--text-small); font-weight: var(--weight-semibold);
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-control);
+}
+.coupon__senden { min-height: 56px; width: 100%; margin-top: var(--space-2); font-size: 1.125rem; }
+.coupon__status:empty { display: none; }
+.coupon__status { background: var(--bg); color: var(--text); padding: var(--space-3) var(--space-4); border-radius: var(--radius-control); font-weight: var(--weight-semibold); }
+
+/* ---------- Fuß: die Rückseite der Mappe ---------- */
+.fuss {
+  background: var(--brand-dark); color: var(--on-dark);
+  clip-path: var(--zack-oben);
+  padding-top: 14px;
+}
+.fuss__inner {
+  max-width: var(--page-max); margin: 0 auto;
+  padding: clamp(56px, 7vw, 104px) var(--gutter) var(--space-7);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-6) var(--space-7);
+  align-items: end;
+}
+.fuss .wortmarke { color: var(--on-dark); -webkit-text-stroke-color: var(--on-dark); grid-column: 1 / -1; justify-self: start; }
+.fuss__zeilen { display: grid; gap: var(--space-3); }
+.fuss__claim { font-size: var(--text-body); text-wrap: balance; }
+.fuss__links { display: flex; flex-wrap: wrap; gap: 0 var(--space-5); }
+.fuss__links a, .fuss__hoch { color: var(--on-dark); display: inline-flex; align-items: center; min-height: 44px; }
+.fuss__copy { color: var(--on-dark-muted); font-size: var(--text-small); }
+.fuss__hoch { grid-column: 2; justify-self: end; }
+.fuss a:focus-visible { outline: var(--focus-ring-on-dark); }
+
+/* Marker unter „Zeit“ (aus Ausprägung B): Schrift bleibt --text, Koralle nur als Fläche */
+.betont-marker { position: relative; display: inline-block; z-index: 0; }
+.betont-marker::after {
+  content: ""; position: absolute; z-index: -1;
+  left: -0.04em; right: -0.06em; bottom: 0.06em; height: 0.26em;
+  background: var(--accent);
+  transform-origin: left center;
+}
+
+/* ---------- Bewegung ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-rise] { opacity: 0; transform: translateY(18px); animation: rise var(--t-reveal) var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 90ms + 120ms); }
+  .js [data-line] { transform: translateY(105%); animation: line-up 900ms var(--ease-out) forwards; animation-delay: calc(var(--i) * 120ms + 200ms); }
+  .js .betont-marker::after { transform: scaleX(0); animation: marker-auf 700ms var(--ease-out) 1100ms forwards; }
+  .js .einstieg__person { animation: person-rein 1400ms var(--ease-out) 300ms backwards; }
+  /* Reiter schieben sich beim Erscheinen des Blatts aus der Kante (nur transform, Inhalt bleibt lesbar) */
+  .js .blatt__kante > .reiter, .js .reiter--titel { transition: translate 700ms var(--ease-out); }
+  .js .blatt:not(.is-da) .blatt__kante > .reiter, .js .blatt:not(.is-da) .reiter--titel { translate: 0 30%; }
+
+  .js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out); }
+  .js [data-reveal].is-in { opacity: 1; transform: none; }
+  .js [data-reveal-item] { opacity: 0; transform: translateY(16px); transition: opacity 600ms var(--ease-out), transform 700ms var(--ease-out); transition-delay: calc(var(--n, 0) * 70ms); }
+  .js .is-in [data-reveal-item], .js [data-reveal-item].is-in { opacity: 1; transform: none; }
+  .js .aufgabe[data-reveal-item].is-in { transition: opacity var(--t-hover) ease, transform 700ms var(--ease-out); }
+
+  .js .shutter { clip-path: inset(0 0 100% 0); transition: clip-path 1100ms var(--ease-in-out); }
+  .js .is-in .shutter { clip-path: inset(0 0 0 0 round var(--radius-media)); }
+
+}
+@keyframes rise { to { opacity: 1; transform: none; } }
+@keyframes line-up { to { transform: none; } }
+@keyframes marker-auf { to { transform: scaleX(1); } }
+@keyframes person-rein { from { transform: translateY(40px) scale(0.97); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .fahne, .aufgabe__haken::after, .frage__zeichen, .frage__zeichen::before, .frage__zeichen::after { transition: opacity 120ms ease, background-color 120ms ease !important; }
+  .fahne { transform: none; opacity: 0; }
+  .aufgabe__box:checked ~ .fahne { opacity: 1; }
+  .aufgabe:hover .fahne { transform: none; }
+  .ueber__rahmen img { transform: none !important; }
+  .kopf__nav.is-open { animation: none !important; }
+}
+
+/* ---------- Mittelbreite ---------- */
+@media (max-width: 900px) {
+  :root { --x-anfang: 0.35; --x-ueber: 0.1; --x-fragen: 0.6; --x-kontakt: 1; }
+  .bereiche, .anfang, .ueber { grid-template-columns: 1fr; }
+  .ueber { row-gap: 48px; } /* Text mit Abstand zum Foto, damit er nicht wie eine Bildunterschrift wirkt */
+  .bereiche__seite, .anfang__bild { position: static; }
+  .anfang__bild { max-width: 420px; }
+  .ueber__bild { max-width: 420px; }
+  .fragen { grid-template-columns: 1fr; }
+  .coupon { grid-template-columns: 1fr; }
+  .coupon::before, .coupon::after { display: none; }
+  .coupon__form { border-left: 0; border-top: 5px dotted var(--bg); position: relative; }
+  .coupon__form::before, .coupon__form::after {
+    content: ""; position: absolute; top: -18px; width: 32px; height: 32px; border-radius: 50%; background: var(--bg);
+  }
+  .coupon__form::before { left: -16px; }
+  .coupon__form::after { right: -16px; }
+}
+
+/* ---------- Handy ---------- */
+@media (max-width: 600px) {
+  :root { --titel-hoch: 48px; --x-anfang: 0; --x-ueber: 0; --x-fragen: 0; --x-kontakt: 0; }
+  .wortmarke { font-size: 1.5rem; }
+  .einstieg__knoepfe { flex-direction: column; }
+  .einstieg__knoepfe .knopf { width: 100%; }
+  .reiter--titel, .blatt__kante > .reiter { padding: 0 24px; }
+  .zettel { margin-right: 18px; }
+  .fahne { right: -18px; width: 44px; }
+  .aufgabe { grid-template-columns: 44px minmax(0, 1fr); column-gap: var(--space-4); padding: 18px 16px; }
+  .aufgabe__box { left: 16px; top: 18px; }
+  .frage summary { padding: var(--space-4); }
+  .frage__antwort { padding: 0 var(--space-4) var(--space-4); }
+  .coupon { margin-inline: 12px !important; }
+  .coupon__links, .coupon__form { padding: 28px 20px; }
+  .brief__abriss { grid-template-columns: 1fr; }
+  .fuss__inner { grid-template-columns: 1fr auto; }
+}
+
+
+/* ---------- Über mich: das Petrol-Blatt (Ausprägung A) ----------
+   Das Blatt hat die Farbe seines Reiters und läuft über die volle Breite.
+   Kontraste: --bg auf --brand 7,6:1 (Text, Name, Reiter), --bg auf --brand-dark 10,1:1
+   (Werdegang-Streifen), Koralle auf --brand-dark 4,9:1 (nur Punkte, Grafik ≥ 3:1),
+   Fokusring --bg auf --brand 7,6:1. */
+.blatt--ueber {
+  background: var(--brand);
+  color: var(--bg);
+  padding-bottom: clamp(64px, 8vw, 128px);
+}
+.blatt--ueber ::selection { background: var(--bg); color: var(--brand); }
+.blatt--ueber :focus-visible { outline: var(--focus-ring-on-dark); }
+.blatt--ueber .ueber { padding-top: clamp(40px, 4.5vw, 72px); }
+.blatt--ueber .ueber__rahmen { background: var(--brand-dark); }
+.blatt--ueber .brief__name { color: var(--bg); }
+.blatt--ueber .brief__avatar { background: var(--brand-dark); }
+.blatt--ueber .brief__abriss {
+  background: var(--brand-dark); color: var(--bg);
+  border-top-color: var(--on-dark-muted);
+}
+
+
+
+/* ---------- Kleine Korrekturen aus der Überlagerungsprüfung (Ausprägung A) ---------- */
+/* Die Markierungsfahne ragt 40 px (Handy 26 px) in den Zettel: Überschrift und Satz halten Abstand */
+.aufgabe { padding-right: 56px; }
+@media (max-width: 600px) {
+  .aufgabe { padding-right: 32px; }
+  /* Lochung am Anfrageblatt bleibt innerhalb des 12-px-Rands, nichts ragt über die Seitenbreite */
+  .coupon__form::before, .coupon__form::after { width: 24px; height: 24px; top: -14px; }
+  .coupon__form::before { left: -12px; }
+  .coupon__form::after { right: -12px; }
+}
+
+
+/* =====================================================================
+   Gemeinsame Ergänzungen für die Unterseiten
+   ===================================================================== */
+
+/* Aktuelle Seite in Kopf und Fuß: dieselbe Koralle-Unterstreichung wie beim Überfahren */
+.kopf__nav ul a[aria-current="page"]::after { transform: scaleX(1); }
+.fuss__links a[aria-current="page"] { text-decoration-thickness: 2px; text-underline-offset: 0.3em; }
+
+/* Häkchen-Liste: kleines Petrol-Häkchen aus dem Aufgabenzettel als Aufzählungszeichen */
+.haken-liste { display: grid; gap: var(--space-3); }
+.haken-liste li { position: relative; padding-left: 32px; max-width: 60ch; }
+.haken-liste li::before {
+  content: ""; position: absolute; left: 4px; top: 0.42em;
+  width: 13px; height: 7px;
+  border: solid var(--brand); border-width: 0 0 2.5px 2.5px;
+  transform: rotate(-45deg);
+}
+
+/* Formular: Honigtopf für Bots, für Menschen unsichtbar; Statusmeldungen */
+.falle { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; } /* taste-skill-ignore: unsichtbarer Honigtopf, keine Linie */
+.coupon__status.is-fehler { color: var(--error); }
+
+/* Lange Reiter dürfen auf schmalen Bildschirmen umbrechen statt über den Rand zu ragen */
+@media (max-width: 600px) {
+  .blatt__kante > .reiter--lang {
+    white-space: normal; height: auto; min-height: var(--titel-hoch);
+    padding-block: 10px; line-height: 1.12;
+  }
+}
+
+
+/* =====================================================================
+   Leistungen und Preise (leistungen.html)
+   ===================================================================== */
+
+/* Deckblatt: rein typografisch. Breit Titel links, Absatz rechts auf derselben Grundlinie. */
+.deckblatt {
+  max-width: var(--page-max); margin: 0 auto;
+  padding: clamp(16px, 4vw, 56px) var(--gutter) calc(var(--titel-hoch) + clamp(40px, 5vw, 72px));
+  display: grid; gap: var(--space-5);
+}
+.deckblatt__titel {
+  font-family: var(--font-display); font-weight: var(--weight-regular);
+  font-size: var(--text-h1-unter); line-height: 1.06; letter-spacing: -0.02em; color: var(--heading);
+}
+/* Absatz direkt unter dem Titel, linksbündig, in Fließtextgröße (vorher rechts daneben und größer) */
+.deckblatt__absatz { font-size: var(--text-body); line-height: 1.6; max-width: 52ch; }
+
+.blatt--aufgaben { --c: var(--surface); --ink: var(--brand); --x: 0; }
+.blatt--weitere { --c: var(--accent); --ink: var(--on-accent); --x: 0.4; margin-top: var(--section-gap); }
+.blatt--preise { --c: var(--brand); --ink: var(--bg); --x: 0.75; margin-top: var(--section-gap); }
+
+/* Aufgaben im Arbeitsalltag: ein Verzeichnisblatt, je Bereich eine Zeile (Titel links, Aufgaben rechts) */
+.verzeichnis-rahmen { padding-top: clamp(40px, 5vw, 72px); }
+.verzeichnis {
+  background: var(--surface);
+  clip-path: var(--zack-unten);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  padding: clamp(8px, 2vw, 24px) clamp(24px, 4vw, 56px) clamp(40px, 4vw, 64px);
+}
+.bereich {
+  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: var(--space-4) clamp(32px, 5vw, 80px);
+  padding-block: clamp(24px, 3vw, 40px);
+}
+.bereich + .bereich { border-top: 5px dotted var(--line-field); }
+.bereich h3, .weitere h3 {
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-h3-v4); line-height: 1.2; letter-spacing: -0.01em; color: var(--heading);
+  text-wrap: balance;
+}
+@media (min-width: 1100px) {
+  .bereich .haken-liste { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-6); align-items: start; }
+}
+
+/* Weitere Formen der Unterstützung: links Werkzeuge mit Logicc-Notiz, rechts der Laufzettel „Kleine eigene Anwendungen“ */
+.weitere {
+  display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  gap: clamp(32px, 6vw, 96px);
+  padding-top: clamp(40px, 5vw, 72px);
+  align-items: start;
+}
+.weitere h3 { margin-bottom: var(--space-5); }
+.notiz {
+  position: relative;
+  margin-top: var(--space-7);
+  background: var(--surface);
+  border-radius: var(--radius-control);
+  padding: var(--space-6) var(--space-6) var(--space-4);
+  max-width: 60ch;
+}
+.notiz::before {
+  content: ""; position: absolute; top: -10px; right: 24px; width: 28px; height: 44px;
+  background: var(--accent);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 10px), 0 100%);
+}
+.notiz p { padding-right: 40px; }
+.notiz .textlink { margin-top: var(--space-2); }
+.laufzettel--anwendungen { max-width: none; }
+.laufzettel--anwendungen > p { margin-bottom: var(--space-5); max-width: 52ch; }
+
+/* Angebote und Preise: Petrol-Blatt, darauf die Preisliste als heller Zettel */
+.blatt--preise {
+  background: var(--brand); color: var(--bg);
+  padding-bottom: clamp(64px, 8vw, 128px);
+  margin-bottom: var(--section-gap); /* helle Fläche vor der gezackten Fußkante, wie auf der Startseite */
+}
+.blatt--preise ::selection { background: var(--bg); color: var(--brand); }
+.blatt--preise :focus-visible { outline: var(--focus-ring-on-dark); }
+.preise { padding-top: clamp(40px, 4.5vw, 72px); }
+.preisliste {
+  background: var(--bg); color: var(--text);
+  clip-path: var(--zack-unten);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  padding: clamp(8px, 2vw, 16px) clamp(24px, 4vw, 56px) clamp(40px, 4vw, 64px);
+}
+.angebot {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(10rem, 15rem);
+  gap: var(--space-4) clamp(32px, 5vw, 80px);
+  align-items: baseline;
+  padding-block: clamp(24px, 3vw, 36px);
+}
+.angebot + .angebot { border-top: 5px dotted var(--line-field); }
+.angebot h3 {
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-h3-v4); line-height: 1.2; letter-spacing: -0.01em; color: var(--heading);
+}
+.angebot__text p { margin-top: var(--space-2); max-width: 60ch; }
+.preis {
+  font-family: var(--font-display); color: var(--brand);
+  font-size: clamp(1.375rem, 1.2rem + 0.5vw, 1.75rem); line-height: 1.15; letter-spacing: -0.01em;
+  text-align: right;
+}
+.preis__ab { font-size: 0.7em; letter-spacing: 0; }
+.preis__betrag { white-space: nowrap; }
+.preis--satz { font-size: clamp(1.1875rem, 1.05rem + 0.3vw, 1.375rem); line-height: 1.25; text-wrap: balance; }
+.preise__fuss {
+  margin-top: var(--space-7);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-5) var(--space-7);
+  align-items: center;
+}
+.preise__hinweis { color: var(--bg); max-width: 72ch; font-size: var(--text-small); line-height: 1.55; } /* Stufe „Klein“ wie alle Zusatzhinweise */
+.preise__hinweis p { text-wrap: pretty; }
+.preise__hinweis p + p { margin-top: var(--space-3); }
+/* BAFA-Hinweis unter der Bestandsaufnahme: kein Kasten, dunkle Schrift (16 px), nur das kleine Koralle-Lesezeichen hebt ihn hervor */
+.angebot__text .angebot__foerderung {
+  position: relative; margin-top: var(--space-4); padding-left: 26px; max-width: 60ch;
+  color: var(--text); font-size: var(--text-small); line-height: 1.5;
+}
+.angebot__foerderung::before {
+  content: ""; position: absolute; left: 0; top: 0.2em; width: 12px; height: 18px;
+  background: var(--accent);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 5px), 0 100%);
+}
+.preise__knopf { min-height: 56px; }
+
+@media (max-width: 900px) {
+  .blatt--weitere { --x: 0.3; }
+  .blatt--preise { --x: 0.6; }
+  .bereich, .weitere { grid-template-columns: 1fr; }
+  .angebot { grid-template-columns: 1fr; }
+  .preis { text-align: left; }
+  .preise__fuss { grid-template-columns: 1fr; justify-items: start; }
+}
+@media (max-width: 600px) {
+  .blatt--weitere, .blatt--preise { --x: 0; }
+  .verzeichnis, .preisliste { padding-inline: 20px; }
+  .preise > .preisliste { margin-inline: calc(var(--gutter) * -0.5); }
+  .preise__knopf { width: 100%; }
+  .notiz { padding: var(--space-5) var(--space-5) var(--space-3); }
+}
+
+
+/* =====================================================================
+   Rechtsseiten (impressum.html, datenschutz.html): Lesemodus
+   Ein ruhiges Registerblatt mit Reiter „Rechtliches“, Textspalte höchstens etwa 70 Zeichen.
+   ===================================================================== */
+.blatt--recht {
+  --c: var(--surface); --ink: var(--brand); --x: 0;
+  margin-top: calc(var(--titel-hoch) + clamp(24px, 4vw, 56px));
+  background: var(--surface);
+  padding-bottom: clamp(64px, 8vw, 128px);
+}
+.recht { padding-top: clamp(40px, 5vw, 80px); }
+.recht__kopf { margin-bottom: clamp(32px, 4vw, 56px); }
+.recht__titel {
+  font-family: var(--font-display); font-weight: var(--weight-regular);
+  font-size: var(--text-h1-unter); line-height: 1.08; letter-spacing: -0.015em;
+  color: var(--heading);
+}
+.recht__stand { margin-top: var(--space-3); font-size: var(--text-small); color: var(--text-secondary); }
+.recht__text { max-width: 68ch; }
+.recht__text h2 {
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-reiter); line-height: 1.2; letter-spacing: -0.01em;
+  color: var(--heading); text-wrap: balance;
+  margin: var(--space-8) 0 var(--space-4);
+}
+.recht__text h2:first-child { margin-top: 0; }
+.recht__text p, .recht__text address, .recht__text ul { margin: 0 0 var(--space-4); }
+.recht__text address { font-style: normal; line-height: 1.7; }
+.recht__text strong { font-weight: var(--weight-semibold); }
+.recht__text p:has(> strong:only-child) { margin-top: var(--space-6); }
+.recht__text ul { display: grid; gap: var(--space-2); }
+.recht__text li { position: relative; padding-left: 24px; }
+.recht__text li::before {
+  content: ""; position: absolute; left: 4px; top: 0.62em; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--brand);
+}
+.recht__text a { overflow-wrap: anywhere; }
+
+/* Ruhiger Eingang beim Laden: Titel aus der Zeile, danach die ersten Absätze nacheinander.
+   Nur transform/opacity; ohne JS und bei reduzierter Bewegung steht alles sofort da. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .recht__text > * {
+    opacity: 0; transform: translateY(14px);
+    animation: rise 700ms var(--ease-out) forwards; animation-delay: 620ms;
+  }
+  .js .recht__text > :nth-child(1) { animation-delay: 260ms; }
+  .js .recht__text > :nth-child(2) { animation-delay: 320ms; }
+  .js .recht__text > :nth-child(3) { animation-delay: 380ms; }
+  .js .recht__text > :nth-child(4) { animation-delay: 440ms; }
+  .js .recht__text > :nth-child(5) { animation-delay: 500ms; }
+  .js .recht__text > :nth-child(6) { animation-delay: 560ms; }
+}
+@media print {
+  .js .recht__text > * { opacity: 1 !important; transform: none !important; animation: none !important; }
+}
+
+/* Breit: Titel über die ganze Breite, Text in der rechten Lesespalte (dieselbe Teilung wie das Verzeichnis
+   der Leistungsseite). Die Zeilenlänge bleibt bei höchstens 68 Zeichen. */
+@media (min-width: 1100px) {
+  .recht { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(32px, 5vw, 80px); }
+  .recht__kopf { grid-column: 1 / -1; }
+  .recht__text { grid-column: 2; }
+}
+
+/* ---------- Kontakt: Foto im Anfrageblatt (Überarbeitung 4c) ----------
+   Breit: links unter Überschrift, Text und Telefon, im Rahmen wie die übrigen Fotos.
+   Schmal: kleines Hochformat rechts neben der Überschrift. */
+/* Breit: Foto füllt die linke Spalte (bis 420 px) und schließt unten mit der Spalte ab */
+.coupon__bild { margin-top: auto; padding-top: var(--space-2); width: 100%; }
+/* Breit: das Aufgabenfeld wächst mit, damit das Formular so hoch ist wie die Spalte mit dem Foto */
+@media (min-width: 901px) {
+  .coupon__form .feld:has(textarea) { flex: 1 1 auto; }
+  .coupon__form .feld:has(textarea) textarea { flex: 1 1 auto; min-height: 160px; }
+}
+.coupon__bild img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 0%; border-radius: var(--radius-media); }
+@media (max-width: 900px) {
+  .coupon__links {
+    display: grid; grid-template-columns: minmax(0, 1fr) clamp(128px, 36vw, 240px);
+    grid-template-areas: "titel bild" "text text" "telefon telefon";
+    gap: var(--space-5) var(--space-4); align-items: start;
+  }
+  .coupon__titel { grid-area: titel; align-self: center; }
+  .coupon__text { grid-area: text; }
+  .coupon__telefon { grid-area: telefon; }
+  .coupon__bild { grid-area: bild; margin: 0; padding: 0; width: 100%; }
+}
+
+/* ---------- So fängt es an ohne Bild (Überarbeitung 4c) ----------
+   Laufzettel über die volle Breite. Breit zweispaltig: Erstgespräch links, die zwei Wege rechts. */
+.anfang { grid-template-columns: minmax(0, 1fr); }
+.anfang > .laufzettel { max-width: none; }
+@media (min-width: 901px) {
+  .anfang > .laufzettel {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: clamp(40px, 6vw, 96px); align-items: start;
+  }
+  .laufzettel__punkt:first-child { grid-column: 1; grid-row: 1 / span 2; }
+  .laufzettel__punkt:nth-child(n+2) { grid-column: 2; }
+  .laufzettel__punkt:nth-child(2) { margin-top: 0; padding-top: 0; border-top: 0; }
+  .laufzettel__punkt p { max-width: 60ch; }
+}

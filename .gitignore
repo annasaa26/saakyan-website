@@ -1,0 +1,6 @@
+# Nur die Dateien, die die Website zur Darstellung braucht, gehören auf main.
+# Arbeitsdateien, Entwürfe und Notizen bleiben außerhalb (Branch relaunch bzw. lokal).
+.DS_Store
+.taste-skill/
+entwuerfe/
+*.md
