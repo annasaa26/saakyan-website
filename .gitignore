@@ -4,3 +4,6 @@
 .taste-skill/
 entwuerfe/
 *.md
+
+# Branding-Material (LinkedIn-Banner etc.), nicht Teil der Website
+_branding/

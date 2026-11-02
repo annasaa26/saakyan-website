@@ -770,7 +770,7 @@ html:not(.js) .kopf__menu { display: none; }
   .bereich .haken-liste { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-6); align-items: start; }
 }
 
-/* Weitere Formen der Unterstützung: links Werkzeuge mit Logicc-Notiz, rechts der Laufzettel „Kleine eigene Anwendungen“ */
+/* Weitere Formen der Unterstützung: links Werkzeuge mit Datenschutz-Notiz, rechts der Laufzettel „Kleine eigene Anwendungen“ */
 .weitere {
   display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
   gap: clamp(32px, 6vw, 96px);
