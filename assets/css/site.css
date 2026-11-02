@@ -261,6 +261,8 @@ html:not(.js) .kopf__menu { display: none; }
   .einstieg__absatz { margin-top: var(--space-6); max-width: 40ch; align-self: start; }
   .einstieg__knoepfe { padding-bottom: calc(var(--titel-hoch) + var(--space-6)); }
   .einstieg__person { width: var(--pw); margin: 0 calc(var(--bleed) * -1) 0 0; }
+  /* Person mittig zwischen dem Punkt der ersten Titelzeile und dem rechten Rand der Navigation (gemessen 901 bis 1440 px) */
+  .einstieg__person { translate: -42px 0; }
 }
 
 /* ---------- Registerblätter ---------- */
