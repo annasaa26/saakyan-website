@@ -41,7 +41,6 @@
      Der Reiter verschiebt sich um denselben Anteil seiner eigenen Breite zurück,
      dadurch ragt er in keiner Breite über den Rand. */
   --x-anfang: 0.3;
-  --x-ueber: 0.5;
   --x-fragen: 0.7;
   --x-kontakt: 0.92;
 
@@ -286,8 +285,9 @@ html:not(.js) .kopf__menu { display: none; }
 }
 .blatt__kante { max-width: none; }
 .blatt--bereiche { --c: var(--surface); --ink: var(--brand); --x: 0; }
-.blatt--anfang { --c: var(--surface); --ink: var(--brand); --x: var(--x-anfang); margin-top: var(--section-gap); }
-.blatt--ueber { --c: var(--brand); --ink: var(--bg); --x: var(--x-ueber); margin-top: var(--section-gap); }
+/* Petrol-Blatt der Startseite: Zettel --surface auf --brand 7,1:1, Reitertext --bg auf --brand 7,7:1 */
+.blatt--anfang { --c: var(--brand); --ink: var(--bg); --x: var(--x-anfang); margin-top: var(--section-gap); background: var(--brand); padding-bottom: clamp(64px, 8vw, 128px); }
+.blatt--anfang .reiter::selection { background: var(--bg); color: var(--brand); }
 .blatt--fragen { --c: var(--accent); --ink: var(--on-accent); /* Koralle als Akzent, Schrift --text 5,5:1 */ --x: var(--x-fragen); margin-top: var(--section-gap); }
 .blatt--kontakt { --c: var(--surface); --ink: var(--brand); /* Reiter wie „Wobei ich unterstütze“, Anfrageblatt bleibt Koralle */ --x: var(--x-kontakt); margin-top: var(--section-gap); }
 
@@ -371,7 +371,7 @@ html:not(.js) .kopf__menu { display: none; }
   .aufgabe:hover .aufgabe__box:checked ~ .aufgabe__haken { background: var(--brand-dark); }
 }
 
-/* ---------- So fängt es an: der Laufzettel ---------- */
+/* ---------- Laufzettel (So arbeite ich, Leistungen) ---------- */
 .anfang {
   display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   gap: clamp(32px, 6vw, 96px);
@@ -388,43 +388,12 @@ html:not(.js) .kopf__menu { display: none; }
   padding: clamp(28px, 4vw, 56px) clamp(24px, 4vw, 56px) clamp(48px, 5vw, 72px);
   max-width: 640px;
 }
-.laufzettel__punkt + .laufzettel__punkt {
-  margin-top: var(--space-7); padding-top: var(--space-7);
-  border-top: 5px dotted var(--line-field);
-}
 .laufzettel h3 {
   font-family: var(--font-display); font-weight: var(--weight-medium);
   font-size: var(--text-h3-v4); line-height: 1.2; color: var(--heading); margin-bottom: var(--space-3);
 }
-.laufzettel__bafa {
-  position: relative;
-  margin-top: var(--space-5);
-  background: var(--bg);
-  padding: var(--space-5) var(--space-5) var(--space-5);
-  border-radius: var(--radius-control);
-  font-size: var(--text-small); line-height: 1.55; color: var(--text);
-}
-/* Lesezeichen ragt oben aus dem Kästchen und endet im oberen Innenabstand (24 px), also immer über der ersten Textzeile */
-.laufzettel__bafa::before {
-  content: ""; position: absolute; top: -14px; right: 24px; width: 22px; height: 36px;
-  background: var(--accent);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 8px), 0 100%);
-}
 
-/* ---------- Über mich: der Brief ---------- */
-.ueber {
-  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(32px, 6vw, 96px);
-  padding-top: clamp(48px, 5vw, 80px);
-  align-items: center;
-}
-.ueber__rahmen { aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius-media); background: var(--surface); }
-/* Foto 760 × 950 (4:5) passt ohne Beschnitt in den Rahmen; Kopf mit Luft darüber, keine Scrollbewegung */
-.ueber__rahmen img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; }
-.brief { max-width: 640px; }
-.brief__kopf { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); }
-.brief__avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: 50% 33%; transform: scale(1); }
-.brief__name { font-family: var(--font-display); font-style: italic; font-size: 1.375rem; color: var(--brand); }
+/* ---------- Über mich: Brieftext und Werdegang (ueber-mich.html) ---------- */
 .brief__text p { font-size: var(--text-body); line-height: 1.62; max-width: 60ch; }
 .brief__text p + p { margin-top: var(--space-5); }
 /* Einleitung: etwas größer, mit Koralle-Strich als visuellem Halt (auch unter dem Foto auf dem Handy) */
@@ -619,18 +588,15 @@ html:not(.js) .kopf__menu { display: none; }
   .fahne { transform: none; opacity: 0; }
   .aufgabe__box:checked ~ .fahne { opacity: 1; }
   .aufgabe:hover .fahne { transform: none; }
-  .ueber__rahmen img { transform: none !important; }
   .kopf__nav.is-open { animation: none !important; }
 }
 
 /* ---------- Mittelbreite ---------- */
 @media (max-width: 900px) {
-  :root { --x-anfang: 0.35; --x-ueber: 0.1; --x-fragen: 0.6; --x-kontakt: 1; }
-  .bereiche, .anfang, .ueber { grid-template-columns: 1fr; }
-  .ueber { row-gap: 48px; } /* Text mit Abstand zum Foto, damit er nicht wie eine Bildunterschrift wirkt */
+  :root { --x-anfang: 0.35; --x-fragen: 0.6; --x-kontakt: 1; }
+  .bereiche, .anfang { grid-template-columns: 1fr; }
   .bereiche__seite, .anfang__bild { position: static; }
   .anfang__bild { max-width: 420px; }
-  .ueber__bild { max-width: 420px; }
   .fragen { grid-template-columns: 1fr; }
   .coupon { grid-template-columns: 1fr; }
   .coupon::before, .coupon::after { display: none; }
@@ -644,7 +610,7 @@ html:not(.js) .kopf__menu { display: none; }
 
 /* ---------- Handy ---------- */
 @media (max-width: 600px) {
-  :root { --titel-hoch: 48px; --x-anfang: 0; --x-ueber: 0; --x-fragen: 0; --x-kontakt: 0; }
+  :root { --titel-hoch: 48px; --x-anfang: 0; --x-fragen: 0; --x-kontakt: 0; }
   .wortmarke { font-size: 1.5rem; }
   .einstieg__knoepfe { flex-direction: column; }
   .einstieg__knoepfe .knopf { width: 100%; }
@@ -660,29 +626,6 @@ html:not(.js) .kopf__menu { display: none; }
   .brief__abriss { grid-template-columns: 1fr; }
   .fuss__inner { grid-template-columns: 1fr auto; }
 }
-
-
-/* ---------- Über mich: das Petrol-Blatt (Ausprägung A) ----------
-   Das Blatt hat die Farbe seines Reiters und läuft über die volle Breite.
-   Kontraste: --bg auf --brand 7,6:1 (Text, Name, Reiter), --bg auf --brand-dark 10,1:1
-   (Werdegang-Streifen), Koralle auf --brand-dark 4,9:1 (nur Punkte, Grafik ≥ 3:1),
-   Fokusring --bg auf --brand 7,6:1. */
-.blatt--ueber {
-  background: var(--brand);
-  color: var(--bg);
-  padding-bottom: clamp(64px, 8vw, 128px);
-}
-.blatt--ueber ::selection { background: var(--bg); color: var(--brand); }
-.blatt--ueber :focus-visible { outline: var(--focus-ring-on-dark); }
-.blatt--ueber .ueber { padding-top: clamp(40px, 4.5vw, 72px); }
-.blatt--ueber .ueber__rahmen { background: var(--brand-dark); }
-.blatt--ueber .brief__name { color: var(--bg); }
-.blatt--ueber .brief__avatar { background: var(--brand-dark); }
-.blatt--ueber .brief__abriss {
-  background: var(--brand-dark); color: var(--bg);
-  border-top-color: var(--on-dark-muted);
-}
-
 
 
 /* ---------- Kleine Korrekturen aus der Überlagerungsprüfung (Ausprägung A) ---------- */
@@ -957,17 +900,91 @@ html:not(.js) .kopf__menu { display: none; }
   .coupon__bild { grid-area: bild; margin: 0; padding: 0; width: 100%; }
 }
 
-/* ---------- So fängt es an ohne Bild (Überarbeitung 4c) ----------
-   Laufzettel über die volle Breite. Breit zweispaltig: Erstgespräch links, die zwei Wege rechts. */
+
+/* =====================================================================
+   Über mich (ueber-mich.html)
+   Breit: links Titel, Text und Werdegang, rechts Foto und Knopf, beide Spalten schließen unten bündig ab.
+   Schmal: Titel, Foto, Text, Werdegang, Knopf.
+   ===================================================================== */
+.vorstellung {
+  max-width: var(--page-max); margin: 0 auto;
+  padding: clamp(16px, 4vw, 56px) var(--gutter) var(--section-gap);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(320px, 38vw, 480px);
+  gap: var(--space-6) clamp(32px, 6vw, 80px);
+}
+.vorstellung__links { display: flex; flex-direction: column; gap: var(--space-6); }
+.vorstellung__rechts { display: flex; flex-direction: column; gap: var(--space-5); }
+.vorstellung__bild {
+  width: 100%; aspect-ratio: 4 / 5; overflow: hidden;
+  border-radius: var(--radius-media); background: var(--surface);
+}
+/* Ausschnitt 824 × 1030 aus dem Foto 1040 × 1300 (ab x 128, y 15): endet knapp unter der rechten Hand.
+   Werte relativ zur Rahmenbreite, dadurch bleibt der Ausschnitt in jeder Breite gleich. */
+.vorstellung__bild img { width: 126.2%; max-width: none; height: auto; margin: -1.82% 0 0 -15.53%; }
+/* Werdegang: Reiter direkt auf der Petrol-Karte, Karte nur so breit wie die Textspalte */
+.vorstellung__werdegang { margin-top: auto; }
+.vorstellung__reiter {
+  display: inline-flex; align-items: center; min-height: 48px; max-width: 100%;
+  padding: 8px 28px; margin: 0 0 -1px;
+  background: var(--brand); color: var(--bg);
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-reiter); line-height: 1.12; letter-spacing: -0.01em;
+}
+.vorstellung__abriss { margin-top: 0; border-top: 0; border-radius: 0 var(--radius-card) var(--radius-card) var(--radius-card); }
+.vorstellung__abriss ::selection, .vorstellung__reiter::selection { background: var(--bg); color: var(--brand); }
+.vorstellung__knopf { min-height: 56px; margin-top: auto; }
+/* Die Einblend-Zeile schneidet sonst die Punkte auf dem Ü ab */
+.vorstellung__titel .zeile { padding-top: 0.2em; margin-top: -0.2em; }
+
+/* Wird der Text höher als das Foto, bleibt der Knopf direkt unter dem Foto */
+@media (max-width: 1140px) { .vorstellung__knopf { margin-top: 0; } }
+
+@media (max-width: 900px) {
+  .vorstellung { grid-template-columns: minmax(0, 1fr); }
+  .vorstellung__links, .vorstellung__rechts { display: contents; }
+  .vorstellung__titel { order: 1; }
+  .vorstellung__bild { order: 2; max-width: 420px; }
+  .vorstellung__text { order: 3; }
+  .vorstellung__werdegang { order: 4; margin-top: 0; }
+  .vorstellung__knopf { order: 5; margin-top: 0; }
+}
+
+/* =====================================================================
+   So arbeite ich (Startseite): oben das Erstgespräch, darunter zwei gleichwertige Karten.
+   ===================================================================== */
 .anfang { grid-template-columns: minmax(0, 1fr); }
-.anfang > .laufzettel { max-width: none; }
-@media (min-width: 901px) {
-  .anfang > .laufzettel {
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    column-gap: clamp(40px, 6vw, 96px); align-items: start;
-  }
-  .laufzettel__punkt:first-child { grid-column: 1; grid-row: 1 / span 2; }
-  .laufzettel__punkt:nth-child(n+2) { grid-column: 2; }
-  .laufzettel__punkt:nth-child(2) { margin-top: 0; padding-top: 0; border-top: 0; }
-  .laufzettel__punkt p { max-width: 60ch; }
+.laufzettel.ablauf { max-width: none; }
+.ablauf__start { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--space-3) clamp(32px, 5vw, 80px); }
+.ablauf__start h3 { margin-bottom: 0; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem); }
+.ablauf__start p { max-width: 66ch; }
+.wege {
+  margin-top: var(--space-6); padding-top: var(--space-6);
+  border-top: 5px dotted var(--line-field);
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 3vw, 40px);
+}
+.weg {
+  background: var(--bg); border-radius: var(--radius-card);
+  padding: clamp(24px, 3vw, 40px);
+}
+.weg__foerderung {
+  position: relative;
+  margin-top: var(--space-5); padding-top: var(--space-5); padding-left: 30px;
+  border-top: 5px dotted var(--line);
+  font-size: var(--text-small); line-height: 1.55;
+}
+/* Lesezeichen wie beim BAFA-Hinweis auf der Leistungsseite */
+.weg__foerderung::before {
+  content: ""; position: absolute; left: 0; top: calc(var(--space-5) + 0.2em); width: 14px; height: 21px;
+  background: var(--accent);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 5px), 0 100%);
+}
+@media (max-width: 900px) {
+  .ablauf__start { grid-template-columns: minmax(0, 1fr); }
+  .wege { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+}
+@media (max-width: 600px) {
+  .laufzettel.ablauf { padding-inline: 16px; }
+  .weg { padding: 20px; }
 }

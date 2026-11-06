@@ -39,7 +39,7 @@
       <nav class="kopf__nav" id="hauptnav" aria-label="Hauptnavigation">
         <ul>
           <li><a href="leistungen.html">Leistungen &amp; Preise</a></li>
-          <li><a href="#ueber-mich">Über mich</a></li>
+          <li><a href="ueber-mich.html">Über mich</a></li>
           <li><a href="#fragen">Häufige Fragen</a></li>
           <li><a href="#kontakt">Kontakt</a></li>
         </ul>
@@ -134,56 +134,27 @@
       </div>
     </section>
 
-    <!-- Register 2: So fängt es an, der Laufzettel -->
+    <!-- Register 2: So arbeite ich, der Laufzettel: Erstgespräch, daraus zwei Wege -->
     <section class="blatt blatt--anfang" id="anfang" aria-labelledby="h-anfang">
-      <div class="blatt__kante"><h2 class="reiter reiter--titel" id="h-anfang">So fängt es an</h2></div>
+      <div class="blatt__kante"><h2 class="reiter reiter--titel" id="h-anfang">So arbeite ich</h2></div>
       <div class="anfang">
-        <ol class="laufzettel" data-reveal>
-          <li class="laufzettel__punkt">
+        <div class="laufzettel ablauf" data-reveal>
+          <div class="ablauf__start">
             <h3>Kostenloses Erstgespräch</h3>
             <p>Du erzählst, welche Aufgaben Zeit kosten oder liegen bleiben, und wir klären unverbindlich, ob eine Zusammenarbeit sinnvoll ist. Ich plane dafür etwa 15 Minuten ein. Das Gespräch findet meist am Telefon statt, auf Wunsch auch per Video oder vor Ort. Passt es, bekommst du danach ein schriftliches Angebot mit Festpreis.</p>
-          </li>
-          <li class="laufzettel__punkt">
-            <h3>Eine Lösung für eine Aufgabe</h3>
-            <p>Steht fest, welche Aufgabe weniger Aufwand machen soll, richte ich dafür eine passende KI-Lösung ein. Alle, die damit arbeiten, weise ich so ein, dass sie sicher damit umgehen.</p>
-          </li>
-          <li class="laufzettel__punkt">
-            <h3>Bestandsaufnahme</h3>
-            <p>Ist noch offen, wo du anfangen sollst, schauen wir uns zuerst die Abläufe in deinem Betrieb an. Am Ende steht ein schriftliches Ergebnis: wo du ansetzen kannst und welche Schritte als Nächstes sinnvoll sind.</p>
-            <p class="laufzettel__bafa">Die Bestandsaufnahme kann über das BAFA-Programm „Förderung von Unternehmensberatungen für KMU“ gefördert werden. Ob dein Unternehmen förderfähig ist und wie der Antrag abläuft, klären wir im Erstgespräch.</p>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- Register 3: Über mich, der Brief -->
-    <section class="blatt blatt--ueber" id="ueber-mich" aria-labelledby="h-ueber">
-      <div class="blatt__kante"><h2 class="reiter reiter--titel" id="h-ueber">Über mich</h2></div>
-      <div class="ueber">
-        <figure class="ueber__bild" data-reveal>
-          <div class="ueber__rahmen">
-            <img src="assets/fotos/anna-saakyan-ueber-mich.jpg" width="1040" height="1300" loading="lazy"
-                 alt="Anna Saakyan steht vor grauem Studiohintergrund, in heller Bluse und schwarzer Hose, und blickt in die Kamera.">
           </div>
-        </figure>
-        <div class="brief" data-reveal>
-          <div class="brief__text">
-            <p>Ich bin Anna Saakyan und unterstütze kleine Dienstleistungsunternehmen und Selbstständige dabei, wiederkehrende Aufgaben durch KI-Lösungen zu vereinfachen. Besonders gern arbeite ich mit Frauen, die selbst ein Unternehmen führen.</p>
-            <p>Ich habe Betriebswirtschaft studiert und sieben Jahre in Marketing und Kommunikation gearbeitet, zuletzt eng mit der Geschäftsführung. Ich bin IHK-zertifizierte Managerin für KI-Transformation und Tool-Integration. Die Werkzeuge, die ich einrichte, nutze ich selbst jeden Tag.</p>
-            <p>Mir ist wichtig, dass eine Lösung zum Betrieb passt, den Menschen dort Arbeit abnimmt und im Alltag gern genutzt wird.</p>
-          </div>
-          <ul class="brief__abriss" aria-label="Werdegang und Qualifikation">
-            <li>Duales BWL-Studium</li>
-            <li>7 Jahre Marketing und Kommunikation</li>
-            <li>IHK-zertifiziert in <span class="nobr">KI-Transformation</span></li>
-            <li>Beim BAFA als Beraterin gelistet</li>
+          <ul class="wege">
+            <li class="weg">
+              <h3>Bestandsaufnahme</h3>
+              <p>Das ist der normale Einstieg, gerade wenn noch offen ist, wo du anfangen sollst. Wir schauen uns zuerst die Abläufe in deinem Betrieb an. Am Ende steht ein schriftliches Ergebnis: wo du ansetzen kannst und welche Schritte als Nächstes sinnvoll sind.</p>
+              <p class="weg__foerderung">Die Bestandsaufnahme kann über das BAFA-Programm „Förderung von Unternehmensberatungen für KMU“ gefördert werden. Ob dein Unternehmen förderfähig ist und wie der Antrag abläuft, klären wir im Erstgespräch.</p>
+            </li>
+            <li class="weg">
+              <h3>Eine Lösung für eine Aufgabe</h3>
+              <p>Du hast ein konkretes Problem, das gelöst werden soll? Dafür richte ich eine passende KI-Lösung ein. Alle, die damit arbeiten, weise ich so ein, dass sie sicher damit umgehen.</p>
+            </li>
           </ul>
         </div>
-      </div>
-
-      <!-- Kundenstimmen: geht live, sobald drei Stimmen vorliegen -->
-      <div class="stimmen" hidden aria-label="Kundenstimmen">
-        <ul class="stimmen__liste"></ul>
       </div>
     </section>
 
@@ -296,6 +267,7 @@
         <p class="fuss__claim">KI-Lösungen für wiederkehrende Aufgaben · Dresden</p>
         <ul class="fuss__links">
           <li><a href="leistungen.html">Leistungen und Preise</a></li>
+          <li><a href="ueber-mich.html">Über mich</a></li>
           <li><a href="impressum.html">Impressum</a></li>
           <li><a href="datenschutz.html">Datenschutz</a></li>
         </ul>
