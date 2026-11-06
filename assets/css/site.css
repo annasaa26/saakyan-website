@@ -922,18 +922,8 @@ html:not(.js) .kopf__menu { display: none; }
 /* Ausschnitt 824 × 1030 aus dem Foto 1040 × 1300 (ab x 128, y 15): endet knapp unter der rechten Hand.
    Werte relativ zur Rahmenbreite, dadurch bleibt der Ausschnitt in jeder Breite gleich. */
 .vorstellung__bild img { width: 126.2%; max-width: none; height: auto; margin: -1.82% 0 0 -15.53%; }
-/* Werdegang: Reiter direkt auf der Petrol-Karte, Karte nur so breit wie die Textspalte */
-.vorstellung__werdegang { margin-top: auto; }
-.vorstellung__reiter {
-  display: inline-flex; align-items: center; min-height: 48px; max-width: 100%;
-  padding: 8px 28px; margin: 0 0 -1px;
-  background: var(--brand); color: var(--bg);
-  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
-  font-family: var(--font-display); font-weight: var(--weight-medium);
-  font-size: var(--text-reiter); line-height: 1.12; letter-spacing: -0.01em;
-}
-.vorstellung__abriss { margin-top: 0; border-top: 0; border-radius: 0 var(--radius-card) var(--radius-card) var(--radius-card); }
-.vorstellung__abriss ::selection, .vorstellung__reiter::selection { background: var(--bg); color: var(--brand); }
+.vorstellung__abriss { margin-top: auto; border-top: 0; border-radius: var(--radius-card); }
+.vorstellung__abriss ::selection { background: var(--bg); color: var(--brand); }
 .vorstellung__knopf { min-height: 56px; margin-top: auto; }
 /* Die Einblend-Zeile schneidet sonst die Punkte auf dem Ü ab */
 .vorstellung__titel .zeile { padding-top: 0.2em; margin-top: -0.2em; }
@@ -947,7 +937,7 @@ html:not(.js) .kopf__menu { display: none; }
   .vorstellung__titel { order: 1; }
   .vorstellung__bild { order: 2; max-width: 420px; }
   .vorstellung__text { order: 3; }
-  .vorstellung__werdegang { order: 4; margin-top: 0; }
+  .vorstellung__abriss { order: 4; margin-top: 0; }
   .vorstellung__knopf { order: 5; margin-top: 0; }
 }
 
