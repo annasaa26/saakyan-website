@@ -584,7 +584,8 @@ html:not(.js) .kopf__menu { display: none; }
 @keyframes rise { to { opacity: 1; transform: none; } }
 @keyframes line-up { to { transform: none; } }
 @keyframes marker-auf { to { transform: scaleX(1); } }
-@keyframes person-rein { from { transform: translateY(40px) scale(0.97); opacity: 0; } }
+/* Nur Bewegung, keine Deckkraft: das Foto ist das größte Element beim Laden (LCP) und soll sofort gemalt werden */
+@keyframes person-rein { from { transform: translateY(40px) scale(0.97); } }
 @media (prefers-reduced-motion: reduce) {
   .fahne, .aufgabe__haken::after, .frage__zeichen, .frage__zeichen::before, .frage__zeichen::after { transition: opacity 120ms ease, background-color 120ms ease !important; }
   .fahne { transform: none; opacity: 0; }
@@ -1050,3 +1051,133 @@ html:not(.js) .kopf__menu { display: none; }
   /* Knöpfe stehen hier untereinander (Spaltenrichtung): Faktenzeile ohne 100 %-Basis, sonst bricht sie in eine zweite Spalte */
   .einstieg__fakten { flex-basis: auto; text-align: center; }
 }
+
+
+/* =====================================================================
+   Themenseiten (Anwendungsfälle, Schulungen, BAFA-Förderung, Sachsen, Häufige Fragen), Stand 07.11.2026
+   Deckblatt wie auf der Leistungsseite, darunter ein ruhiges Registerblatt im Lesemodus:
+   links „Kurz gesagt“ mit Knopf, rechts der Text (höchstens etwa 68 Zeichen je Zeile).
+   ===================================================================== */
+.deckblatt .kurzzeile { margin-bottom: 0; }
+.deckblatt__knoepfe { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
+
+.blatt--thema {
+  --c: var(--surface); --ink: var(--brand); --x: 0;
+  background: var(--surface);
+  padding-bottom: clamp(64px, 8vw, 128px);
+}
+.thema { padding-top: clamp(40px, 5vw, 80px); }
+.thema__seite {
+  background: var(--bg); border-radius: var(--radius-card);
+  padding: var(--space-6); margin-bottom: var(--space-7);
+  box-shadow: inset 4px 0 0 var(--accent);
+}
+.thema__kurz-titel { color: var(--brand); font-weight: var(--weight-semibold); margin-bottom: var(--space-2); }
+.thema__kurz { font-family: var(--font-display); font-size: var(--text-gross); line-height: 1.3; letter-spacing: -0.01em; }
+.thema__knopf { margin-top: var(--space-5); }
+.thema__text { max-width: 68ch; }
+.thema__text h2 {
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-reiter); line-height: 1.2; letter-spacing: -0.01em;
+  color: var(--heading); text-wrap: balance;
+  margin: var(--space-8) 0 var(--space-4);
+}
+.thema__text h2:first-child { margin-top: 0; }
+.thema__text h3 {
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-h3-v4); line-height: 1.2; color: var(--heading);
+  margin: var(--space-6) 0 var(--space-2);
+}
+.thema__text p { margin: 0 0 var(--space-4); }
+.thema__text .haken-liste { margin: 0 0 var(--space-5); }
+.thema__stand { margin-top: var(--space-7) !important; font-size: var(--text-small); color: var(--text-secondary); }
+
+/* Nummerierte Schritte: Petrol-Ziffer im Kreis */
+.schritte { counter-reset: schritt; display: grid; gap: var(--space-4); margin: 0 0 var(--space-5); }
+.schritte li { counter-increment: schritt; position: relative; padding-left: 52px; min-height: 36px; max-width: 60ch; }
+.schritte li::before {
+  content: counter(schritt); position: absolute; left: 0; top: -0.1em;
+  width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--brand); color: var(--bg);
+  font-weight: var(--weight-semibold); font-size: 1rem;
+}
+
+@media (min-width: 1100px) {
+  .thema { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(32px, 5vw, 80px); align-items: start; }
+  .thema__seite { position: sticky; top: 120px; margin-bottom: 0; }
+  .thema__text { grid-column: 2; }
+}
+
+/* Rondell: Anwendungsfälle zum seitlichen Durchblättern, ohne Skript */
+.rondell-rahmen { padding-top: clamp(40px, 5vw, 72px); }
+.rondell__hinweis { font-size: var(--text-small); color: var(--text-secondary); margin-bottom: var(--space-4); }
+.rondell {
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(260px, 340px);
+  gap: var(--space-5);
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-inline: 4px;
+  padding: 4px 4px var(--space-5);
+  scrollbar-color: var(--brand) var(--surface);
+}
+.rondell:focus-visible { outline-offset: 4px; }
+.karte {
+  scroll-snap-align: start;
+  background: var(--bg); border-radius: var(--radius-card);
+  padding: clamp(24px, 3vw, 32px);
+  display: flex; flex-direction: column; gap: var(--space-3);
+  box-shadow: inset 0 4px 0 var(--accent);
+}
+.karte__titel {
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-h3-v4); line-height: 1.2; letter-spacing: -0.01em; color: var(--heading);
+}
+.karte__link { margin-top: auto; }
+.thema--schmal { padding-top: clamp(32px, 4vw, 56px); }
+
+/* Häufige Fragen nach Gruppen (faq.html) */
+.fragen--gruppen { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-7); }
+.fragen__gruppe { display: grid; gap: var(--space-2); max-width: 880px; }
+.fragen__gruppentitel {
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-reiter); line-height: 1.2; color: var(--brand);
+  margin-bottom: var(--space-2);
+}
+.frage__antwort a { overflow-wrap: anywhere; }
+
+/* Abschluss: Petrol-Fläche mit Anfrageknopf am Seitenende */
+.abschluss { max-width: var(--page-max); margin: var(--section-gap) auto; padding-inline: var(--gutter); }
+.abschluss__inner {
+  background: var(--brand); color: var(--bg);
+  border-radius: var(--radius-card);
+  padding: clamp(32px, 5vw, 64px);
+  display: grid; gap: var(--space-4); justify-items: start;
+}
+.abschluss__inner ::selection { background: var(--bg); color: var(--brand); }
+.abschluss__inner :focus-visible { outline: var(--focus-ring-on-dark); }
+.abschluss__titel {
+  font-family: var(--font-display); font-weight: var(--weight-regular);
+  font-size: var(--text-reiter); line-height: 1.2; letter-spacing: -0.01em; max-width: 30ch;
+}
+.abschluss__inner > p { max-width: 60ch; }
+.abschluss__knopf { min-height: 56px; margin-top: var(--space-2); }
+.abschluss__weiter { display: flex; flex-wrap: wrap; gap: 0 var(--space-6); margin-top: var(--space-2); }
+.textlink--hell { color: var(--bg); }
+@media (hover: hover) and (pointer: fine) { .textlink--hell:hover { text-decoration-color: var(--bg); } }
+.blatt--fragen + .abschluss { margin-top: var(--section-gap); }
+
+@media (max-width: 600px) {
+  .deckblatt__knoepfe { flex-direction: column; align-items: stretch; }
+  .thema__seite { padding: var(--space-5); }
+  .abschluss__knopf { width: 100%; }
+  .schritte li { padding-left: 46px; }
+}
+.fragen__mehr { grid-column: 1 / -1; padding: var(--space-4) var(--space-5) 0; }
+/* AVIF-Fassungen der Fotos: das picture-Element soll das Layout nicht verändern */
+.coupon__bild picture, .vorstellung__bild picture { display: contents; }
+/* Aufzählung ohne Häkchen (Ausschlüsse, Anlaufstellen): kleiner Petrol-Punkt wie in den Rechtsseiten */
+.punkt-liste { display: grid; gap: var(--space-3); margin: 0 0 var(--space-5); }
+.punkt-liste li { position: relative; padding-left: 24px; max-width: 60ch; }
+.punkt-liste li::before { content: ""; position: absolute; left: 4px; top: 0.62em; width: 8px; height: 8px; border-radius: 50%; background: var(--brand); }
+/* Link im Preishinweis auf der Petrol-Fläche: helle Schrift (Kontrast 7,7:1) */
+.preise__hinweis a { color: var(--bg); }
