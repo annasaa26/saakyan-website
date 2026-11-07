@@ -40,8 +40,10 @@
   /* Reiterpositionen als Anteil der Inhaltsbreite (0 = links, 1 = rechts bündig).
      Der Reiter verschiebt sich um denselben Anteil seiner eigenen Breite zurück,
      dadurch ragt er in keiner Breite über den Rand. */
-  --x-anfang: 0.3;
-  --x-fragen: 0.7;
+  --x-alltag: 0.18;
+  --x-anfang: 0.36;
+  --x-warum: 0.55;
+  --x-fragen: 0.74;
   --x-kontakt: 0.92;
 
   --zack-unten: polygon(0 0, 100% 0, 100% 100%, 97.5% calc(100% - 10px), 95% 100%, 92.5% calc(100% - 10px), 90% 100%, 87.5% calc(100% - 10px), 85% 100%, 82.5% calc(100% - 10px), 80% 100%, 77.5% calc(100% - 10px), 75% 100%, 72.5% calc(100% - 10px), 70% 100%, 67.5% calc(100% - 10px), 65% 100%, 62.5% calc(100% - 10px), 60% 100%, 57.5% calc(100% - 10px), 55% 100%, 52.5% calc(100% - 10px), 50% 100%, 47.5% calc(100% - 10px), 45% 100%, 42.5% calc(100% - 10px), 40% 100%, 37.5% calc(100% - 10px), 35% 100%, 32.5% calc(100% - 10px), 30% 100%, 27.5% calc(100% - 10px), 25% 100%, 22.5% calc(100% - 10px), 20% 100%, 17.5% calc(100% - 10px), 15% 100%, 12.5% calc(100% - 10px), 10% 100%, 7.5% calc(100% - 10px), 5% 100%, 2.5% calc(100% - 10px), 0 100%);
@@ -593,7 +595,7 @@ html:not(.js) .kopf__menu { display: none; }
 
 /* ---------- Mittelbreite ---------- */
 @media (max-width: 900px) {
-  :root { --x-anfang: 0.35; --x-fragen: 0.6; --x-kontakt: 1; }
+  :root { --x-alltag: 0.2; --x-anfang: 0.4; --x-warum: 0.6; --x-fragen: 0.8; --x-kontakt: 1; }
   .bereiche, .anfang { grid-template-columns: 1fr; }
   .bereiche__seite, .anfang__bild { position: static; }
   .anfang__bild { max-width: 420px; }
@@ -610,7 +612,7 @@ html:not(.js) .kopf__menu { display: none; }
 
 /* ---------- Handy ---------- */
 @media (max-width: 600px) {
-  :root { --titel-hoch: 48px; --x-anfang: 0; --x-fragen: 0; --x-kontakt: 0; }
+  :root { --titel-hoch: 48px; --x-alltag: 0; --x-anfang: 0; --x-warum: 0; --x-fragen: 0; --x-kontakt: 0; }
   .wortmarke { font-size: 1.5rem; }
   .einstieg__knoepfe { flex-direction: column; }
   .einstieg__knoepfe .knopf { width: 100%; }
@@ -977,4 +979,74 @@ html:not(.js) .kopf__menu { display: none; }
 @media (max-width: 600px) {
   .laufzettel.ablauf { padding-inline: 16px; }
   .weg { padding: 20px; }
+}
+
+/* =====================================================================
+   Käufertypen-Überarbeitung (11/2026): Faktenzeile im Einstieg, Aus dem Alltag,
+   Eckdaten in den Wegen, Warum ich, Zusatzlinks auf der Leistungsseite.
+   ===================================================================== */
+.einstieg__fakten {
+  flex-basis: 100%;
+  margin-top: var(--space-2);
+  font-size: var(--text-small); line-height: 1.5; font-weight: var(--weight-semibold); color: var(--brand);
+}
+
+/* Aus dem Alltag: drei Situationen, vorher und danach */
+.blatt--alltag { --c: var(--accent); --ink: var(--on-accent); --x: var(--x-alltag); margin-top: var(--section-gap); }
+.alltag { padding-top: clamp(48px, 5vw, 80px); }
+.alltag__einleitung { font-family: var(--font-display); font-size: var(--text-gross); line-height: 1.2; letter-spacing: -0.01em; color: var(--heading); }
+.alltag__liste {
+  margin-top: var(--space-6);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.5vw, 32px);
+}
+.fall {
+  background: var(--surface); border-radius: var(--radius-card);
+  padding: clamp(24px, 3vw, 36px);
+  display: flex; flex-direction: column; gap: var(--space-4);
+}
+.fall h3 {
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-h3-v4); line-height: 1.2; color: var(--heading);
+}
+.fall p { max-width: 46ch; }
+.fall__danach { padding-top: var(--space-4); border-top: 5px dotted var(--line-field); }
+.fall__marke {
+  display: block; margin-bottom: var(--space-1);
+  font-size: var(--text-small); font-weight: var(--weight-semibold); letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand);
+}
+.alltag__link { margin-top: var(--space-5); }
+
+/* So arbeite ich: Preis und Dauer je Weg */
+.weg h3 { margin-bottom: var(--space-1); }
+.weg__eckdaten { margin-bottom: var(--space-3); font-weight: var(--weight-semibold); color: var(--brand); }
+.weg__preis { font-family: var(--font-display); font-size: var(--text-h3-v4); font-weight: var(--weight-medium); }
+.weg .textlink { margin-top: var(--space-3); }
+
+/* Warum ich: Kurzvorstellung links, Belege rechts */
+.blatt--warum { --c: var(--surface); --ink: var(--brand); --x: var(--x-warum); margin-top: var(--section-gap); }
+.warum {
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(32px, 5vw, 80px); align-items: start;
+  padding-top: clamp(48px, 5vw, 80px);
+}
+.warum__text p { font-size: var(--text-body); line-height: 1.62; max-width: 60ch; }
+.warum__text p + p { margin-top: var(--space-5); }
+.warum__text p:first-child { font-size: 1.25rem; line-height: 1.55; padding-left: 20px; box-shadow: inset 4px 0 0 var(--accent); }
+.warum__text .textlink { margin-top: var(--space-4); }
+.warum__abriss { margin-top: 0; border-top: 0; border-radius: var(--radius-card); grid-template-columns: minmax(0, 1fr); }
+.warum__abriss ::selection { background: var(--bg); color: var(--brand); }
+
+/* Leistungsseite: Sprunglink zu den Preisen, Hinweis unter dem Verzeichnis, Umfang je Angebot */
+.deckblatt .textlink { margin-top: var(--space-3); }
+.verzeichnis__mehr { margin-top: var(--space-6); }
+.angebot__text .angebot__umfang { margin-top: var(--space-3); font-size: var(--text-small); line-height: 1.55; }
+.angebot__umfang strong { font-weight: var(--weight-semibold); }
+
+@media (max-width: 900px) {
+  .alltag__liste { grid-template-columns: minmax(0, 1fr); }
+  .warum { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  /* Knöpfe stehen hier untereinander (Spaltenrichtung): Faktenzeile ohne 100 %-Basis, sonst bricht sie in eine zweite Spalte */
+  .einstieg__fakten { flex-basis: auto; text-align: center; }
 }
