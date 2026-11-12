@@ -24,7 +24,7 @@
   <link rel="preload" href="assets/fonts/newsreader-var-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/source-sans-3-var-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/tokens.css?v=20261107.2">
-  <link rel="stylesheet" href="assets/css/site.css?v=20261110">
+  <link rel="stylesheet" href="assets/css/site.css?v=20261112">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
 {
@@ -367,13 +367,6 @@
       <div class="alltag" data-rondell>
         <div class="alltag__kopf" data-reveal>
           <p class="alltag__einleitung" data-reveal-item>Typische Situationen aus kleinen Betrieben, jeweils vorher und danach</p>
-          <div class="alltag__steuer" data-reveal-item>
-            <p class="alltag__hinweis" id="alltag-hinweis">Seitlich wischen oder mit den Pfeilen blättern.</p>
-            <div class="alltag__pfeile">
-              <button class="alltag__pfeil" type="button" data-zurueck aria-label="Vorherige Situation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-              <button class="alltag__pfeil" type="button" data-weiter aria-label="Nächste Situation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-            </div>
-          </div>
         </div>
         <nav class="alltag__reiter" aria-label="Situationen">
           <a href="#fall-fragen" aria-current="true">Dieselben Fragen</a>
@@ -381,18 +374,18 @@
           <a href="#fall-absagen">Terminabsagen</a>
           <a href="#fall-notizen">Sprachnotizen</a>
           <a href="#fall-urlaub">Urlaub</a>
+          <a href="#fall-anrufe">Anrufe</a>
         </nav>
-        <ul class="alltag__band" tabindex="0" aria-describedby="alltag-hinweis" aria-label="Situationen aus dem Alltag">
+        <ul class="alltag__band" tabindex="0" aria-label="Situationen aus dem Alltag">
 
           <li class="fall" id="fall-fragen">
             <div class="fall__text">
               <h3>Dieselben Fragen</h3>
               <p class="fall__vorher"><span class="fall__marke">Vorher</span> Jeden Tag kommen dieselben Fragen zu Preisen, Öffnungszeiten und freien Terminen.</p>
               <p class="fall__danach"><span class="fall__marke">Danach</span> Die Antwort steht als Entwurf bereit, auf Grundlage der Informationen aus deinem Betrieb. Du prüfst sie kurz und schickst sie ab.</p>
-              <a class="textlink fall__link" href="/anfragen-beantworten.html">So läuft das ab<span class="sr-only">: Kundenanfragen beantworten</span></a>
+              <a class="textlink textlink--hell fall__link" href="/anfragen-beantworten.html">So läuft das ab<span class="sr-only">: Kundenanfragen beantworten</span></a>
             </div>
             <div class="buehne" aria-hidden="true">
-              <div class="buehne__schalter"><button type="button" tabindex="-1" data-zeige="vorher">Vorher</button><button type="button" tabindex="-1" data-zeige="danach">Danach</button></div>
               <div class="schirm schirm--vorher" data-ui>
                 <p class="schirm__kopf">Posteingang <span class="schirm__zahl">4 neu</span></p>
                 <ul class="post">
@@ -415,10 +408,9 @@
               <h3>Angebote</h3>
               <p class="fall__vorher"><span class="fall__marke">Vorher</span> Angebote entstehen abends oder am Wochenende, oft aus einem alten zusammenkopiert.</p>
               <p class="fall__danach"><span class="fall__marke">Danach</span> Aus Anfrage, Notizen und Preisliste liegt ein Entwurf im Ton deines Betriebs bereit. Du prüfst Mengen und Preise und gibst ihn frei.</p>
-              <a class="textlink fall__link" href="/angebote-schreiben.html">So läuft das ab<span class="sr-only">: Angebote schreiben</span></a>
+              <a class="textlink textlink--hell fall__link" href="/angebote-schreiben.html">So läuft das ab<span class="sr-only">: Angebote schreiben</span></a>
             </div>
             <div class="buehne" aria-hidden="true">
-              <div class="buehne__schalter"><button type="button" tabindex="-1" data-zeige="vorher">Vorher</button><button type="button" tabindex="-1" data-zeige="danach">Danach</button></div>
               <div class="schirm schirm--vorher" data-ui>
                 <p class="schirm__kopf">Für das Angebot</p>
                 <ul class="post">
@@ -445,10 +437,9 @@
               <h3>Terminabsagen</h3>
               <p class="fall__vorher"><span class="fall__marke">Vorher</span> Absagen kommen per WhatsApp, E-Mail und Telefon. Manche gehen unter.</p>
               <p class="fall__danach"><span class="fall__marke">Danach</span> Alle Absagen landen an einer Stelle. Freie Termine siehst du, bevor der Tag beginnt.</p>
-              <a class="textlink fall__link" href="/termine-und-absagen.html">So läuft das ab<span class="sr-only">: Termine und Absagen</span></a>
+              <a class="textlink textlink--hell fall__link" href="/termine-und-absagen.html">So läuft das ab<span class="sr-only">: Termine und Absagen</span></a>
             </div>
             <div class="buehne" aria-hidden="true">
-              <div class="buehne__schalter"><button type="button" tabindex="-1" data-zeige="vorher">Vorher</button><button type="button" tabindex="-1" data-zeige="danach">Danach</button></div>
               <div class="schirm schirm--vorher schirm--verstreut" data-ui>
                 <p class="blase blase--wa"><span>WhatsApp</span>Ich schaffe es morgen leider nicht.</p>
                 <p class="blase blase--mail"><span>E-Mail</span>Können wir Donnerstag verschieben?</p>
@@ -471,10 +462,9 @@
               <h3>Sprachnotizen</h3>
               <p class="fall__vorher"><span class="fall__marke">Vorher</span> Vieles wird zwischen zwei Terminen besprochen. Notiert wird es später, wenn überhaupt.</p>
               <p class="fall__danach"><span class="fall__marke">Danach</span> Aus der Sprachnotiz werden Protokoll und Aufgaben, mit Zuständigkeit und Termin, dort abgelegt, wo dein Team arbeitet.</p>
-              <a class="textlink fall__link" href="/protokolle-und-sprachnotizen.html">So läuft das ab<span class="sr-only">: Protokolle und Sprachnotizen</span></a>
+              <a class="textlink textlink--hell fall__link" href="/protokolle-und-sprachnotizen.html">So läuft das ab<span class="sr-only">: Protokolle und Sprachnotizen</span></a>
             </div>
             <div class="buehne" aria-hidden="true">
-              <div class="buehne__schalter"><button type="button" tabindex="-1" data-zeige="vorher">Vorher</button><button type="button" tabindex="-1" data-zeige="danach">Danach</button></div>
               <div class="schirm schirm--vorher" data-ui>
                 <p class="schirm__kopf">Sprachnotizen</p>
                 <ul class="post">
@@ -499,10 +489,9 @@
               <h3>Urlaub</h3>
               <p class="fall__vorher"><span class="fall__marke">Vorher</span> Wenn du im Urlaub bist, steht vieles still, weil das Wissen bei dir liegt.</p>
               <p class="fall__danach"><span class="fall__marke">Danach</span> Abläufe und Unterlagen sind aufgeschrieben und schnell gefunden. Dein Team kommt ohne Anruf bei dir weiter.</p>
-              <a class="textlink fall__link" href="/leistungen.html#aufgaben">Mehr in den Leistungen<span class="sr-only">: Übergaben und Einarbeitung</span></a>
+              <a class="textlink textlink--hell fall__link" href="/leistungen.html#aufgaben">Mehr in den Leistungen<span class="sr-only">: Übergaben und Einarbeitung</span></a>
             </div>
             <div class="buehne" aria-hidden="true">
-              <div class="buehne__schalter"><button type="button" tabindex="-1" data-zeige="vorher">Vorher</button><button type="button" tabindex="-1" data-zeige="danach">Danach</button></div>
               <div class="schirm schirm--vorher schirm--verstreut" data-ui>
                 <p class="blase blase--ab"><span>Anrufe in Abwesenheit</span>Team, 3 Anrufe</p>
                 <p class="blase blase--wa"><span>WhatsApp</span>Wo liegt die Vorlage für die Auftragsbestätigung?</p>
@@ -515,6 +504,30 @@
                   <li><b>Vorlage Auftragsbestätigung</b><span>Vorlage</span></li>
                   <li><b>Schlüsselübergabe</b><span>Anleitung</span></li>
                 </ul>
+              </div>
+            </div>
+          </li>
+
+          <li class="fall" id="fall-anrufe">
+            <div class="fall__text">
+              <h3>Anrufe</h3>
+              <p class="fall__vorher"><span class="fall__marke">Vorher</span> Anrufe unterbrechen ständig die Arbeit. Kannst du nicht abnehmen, gehen Anfragen verloren.</p>
+              <p class="fall__danach"><span class="fall__marke">Danach</span> Ein Telefonassistent nimmt den Anruf an und hält fest, worum es geht. Du bekommst eine kurze Zusammenfassung und rufst zurück, wenn es passt.</p>
+              <a class="textlink textlink--hell fall__link" href="/ki-telefonassistent.html">So läuft das ab<span class="sr-only">: Anrufe annehmen</span></a>
+            </div>
+            <div class="buehne" aria-hidden="true">
+              <div class="schirm schirm--vorher" data-ui>
+                <p class="schirm__kopf">Verpasste Anrufe <span class="schirm__zahl">3 neu</span></p>
+                <ul class="post">
+                  <li><b>Unbekannte Nummer</b><span>9:12</span></li>
+                  <li><b>Frau B., keine Nachricht</b><span>10:47</span></li>
+                  <li><b>Unbekannte Nummer</b><span>13:30</span></li>
+                </ul>
+              </div>
+              <div class="schirm schirm--danach" data-ui>
+                <p class="schirm__kopf">Anruf von Herrn L. <span class="schirm__status">Zusammenfassung</span></p>
+                <p class="schirm__brief">Herr L. fragt nach einem Termin für eine Fensterreinigung in der kommenden Woche und bittet um Rückruf am Nachmittag.</p>
+                <p class="schirm__aktion">Zurückrufen</p>
               </div>
             </div>
           </li>
@@ -702,6 +715,6 @@
   </footer>
 
   <script src="assets/js/botpoison.js" defer></script>
-  <script src="assets/js/site.js?v=20261109" defer></script>
+  <script src="assets/js/site.js?v=20261112" defer></script>
 </body>
 </html>

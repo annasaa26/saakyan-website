@@ -27,8 +27,8 @@
 
   /* Eine Skala für alle vier Seiten (Überarbeitung 4b): H1 > H2/Reiter > H3 > Text.
      Bei 1280 px etwa: H1 Startseite 58, H1 Unterseiten 58, Reiter/H2 29, H3 24, Aussage 24, Text 18. */
-  --text-display: clamp(2.125rem, 1.2rem + 3.6vw, 4.125rem);   /* H1 Startseite */
-  --text-h1-unter: clamp(2.125rem, 1rem + 3.3vw, 3.625rem);   /* H1 Leistungen, Impressum, Datenschutz */
+  --text-display: clamp(2rem, 3.6vw, 3.5rem);   /* H1 Startseite, HeroV2 (12.11.2026): etwa 52 px bei 1440 */
+  --text-h1-unter: clamp(2rem, 3.6vw, 3.5rem);   /* H1 Unterseiten: seit 12.11.2026 gleich groß wie die Startseite (HeroV2) */
   --text-reiter: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem);   /* Reiter und H2 */
   --text-gross: clamp(1.25rem, 1.1rem + 0.45vw, 1.5rem);      /* Aussagesätze */
   --text-h3-v4: clamp(1.1875rem, 1.05rem + 0.45vw, 1.5rem);   /* H3 */
@@ -195,22 +195,28 @@ html:not(.js) .kopf__menu { display: none; }
   position: relative;
 }
 .kurzzeile {
-  color: var(--brand); font-weight: var(--weight-semibold); font-size: 1.125rem;
+  color: var(--brand); font-weight: var(--weight-semibold); font-size: 1.0625rem;
   margin-bottom: var(--space-4);
+}
+/* HeroV2 (12.11.2026): ruhigere Schriftsetzung im Einstieg der Startseite.
+   Titelgröße und Kurzzeile gelten genauso für die Unterseiten (--text-h1-unter, .kurzzeile). */
+.einstieg .kurzzeile { margin-bottom: 24px; }
+@media (max-width: 900px) {
+  .kurzzeile { font-size: 1rem; }
 }
 .einstieg__titel {
   font-family: var(--font-display);
   font-weight: var(--weight-regular);
   font-size: var(--text-display);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
   color: var(--heading);
 }
 .zeile { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
 .zeile > span { display: block; }
 .einstieg__unten { margin-top: var(--space-6); max-width: 34rem; }
-.einstieg__absatz { font-size: var(--text-lead); line-height: 1.5; max-width: 40ch; }
-.einstieg__knoepfe { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+.einstieg__absatz { font-size: clamp(1.1875rem, 1.45vw, 1.3125rem); line-height: 1.55; max-width: 25em; }
+.einstieg__knoepfe { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: 48px; }
 .nobr { white-space: nowrap; }
 
 /* Einstieg als Raster (Überarbeitung 4b). Kurzzeile, Titel, Absatz und Knöpfe sind eigene Rasterzellen.
@@ -229,7 +235,7 @@ html:not(.js) .kopf__menu { display: none; }
 .einstieg__text, .einstieg__unten, .einstieg__links { display: contents; }
 .einstieg__text > .kurzzeile { grid-area: kurz; }
 .einstieg__text > .einstieg__titel { grid-area: titel; }
-.einstieg__absatz { grid-area: absatz; align-self: center; margin-top: var(--space-5); }
+.einstieg__absatz { grid-area: absatz; align-self: center; margin-top: 32px; }
 .einstieg__knoepfe { grid-area: knoepfe; }
 .einstieg__person {
   grid-area: person; align-self: end; justify-self: end;
@@ -237,9 +243,6 @@ html:not(.js) .kopf__menu { display: none; }
   pointer-events: none;
 }
 .einstieg__person img { width: 100%; }
-@media (max-width: 600px) {
-  .einstieg__absatz { font-size: var(--text-body); line-height: 1.55; }
-}
 /* Ab 901 px: Text links, Anna rechts über die ganze Höhe. Fotobreite an die Fensterhöhe gekoppelt
    (Foto 1010 × 1420, Höhe = Breite × 1,41), damit der Reiter „Wobei ich unterstütze“ bei 1280 × 800 ganz
    im ersten Bildschirm steht. Die Titelgröße folgt der freien Spaltenbreite, damit „Verwaltungsaufwand.“
@@ -259,11 +262,37 @@ html:not(.js) .kopf__menu { display: none; }
     font-size: min(var(--text-display), calc((min(100vw, var(--page-max)) - 2 * var(--gutter) - var(--pw) + var(--bleed) - var(--space-5)) / 13.2));
     line-height: 1.06;
   }
-  .einstieg__absatz { margin-top: var(--space-6); max-width: 40ch; align-self: start; }
+  .einstieg__absatz { margin-top: 32px; max-width: 25em; align-self: start; }
   .einstieg__knoepfe { padding-bottom: calc(var(--titel-hoch) + var(--space-6)); }
   .einstieg__person { width: var(--pw); margin: 0 calc(var(--bleed) * -1) 0 0; }
   /* Person mittig zwischen dem Punkt der ersten Titelzeile und dem rechten Rand der Navigation (gemessen 901 bis 1440 px) */
   .einstieg__person { translate: -42px 0; }
+}
+/* Bis 900 px (12.11.2026): Foto oben unter der Kopfzeile, der Text liegt als Karte mit runden Ecken darüber
+   und schiebt sich beim Scrollen über das Foto. Das Foto liegt auf --surface und wird damit überlagert
+   (multiply), damit sich die Karte vom Bild abhebt. Ausnahme von der Regel „Fotos ohne Filter“. */
+@media (max-width: 900px) {
+  .einstieg { display: flex; flex-direction: column; padding: 0; max-width: none; }
+  .einstieg__person {
+    order: -1; position: sticky; top: 64px; z-index: 0;
+    width: 100%; height: 50svh; min-height: 320px; margin: 0;
+    background: var(--surface); overflow: hidden;
+  }
+  .einstieg__person picture { display: block; height: 100%; }
+  .einstieg__person img {
+    width: 100%; height: 100%; object-fit: cover; object-position: 50% 10%;
+    mix-blend-mode: multiply;
+  }
+  .einstieg__text {
+    display: block; position: relative; z-index: 2;
+    margin-top: -28px; padding: 28px var(--gutter) calc(var(--titel-hoch) + var(--space-6));
+    background: var(--bg); border-radius: 24px 24px 0 0;
+  }
+  .einstieg__unten, .einstieg__links { display: block; max-width: none; margin-top: 0; }
+  .einstieg .kurzzeile { margin-bottom: 12px; }
+  .einstieg__titel { font-size: clamp(1.875rem, 8.2vw, 2.75rem); line-height: 1.08; }
+  .einstieg__absatz { font-size: 1.1875rem; margin-top: 24px; max-width: 30em; }
+  .einstieg__knoepfe { margin-top: 32px; }
 }
 
 /* ---------- Registerblätter ---------- */
@@ -552,11 +581,11 @@ html:not(.js) .kopf__menu { display: none; }
 .fuss__hoch { grid-column: 2; justify-self: end; }
 .fuss a:focus-visible { outline: var(--focus-ring-on-dark); }
 
-/* Marker unter „Zeit“ (aus Ausprägung B): Schrift bleibt --text, Koralle nur als Fläche */
-.betont-marker { position: relative; display: inline-block; z-index: 0; }
+/* Unterstreichung von „von vorn?“ (HeroV2: dünne Linie statt Markerbalken), Koralle nur als Fläche */
+.betont-marker { position: relative; display: inline-block; z-index: 0; white-space: nowrap; }
 .betont-marker::after {
   content: ""; position: absolute; z-index: -1;
-  left: -0.04em; right: -0.06em; bottom: 0.06em; height: 0.26em;
+  left: 0; right: 0; bottom: -0.03em; height: 0.13em;
   background: var(--accent);
   transform-origin: left center;
 }
@@ -992,32 +1021,17 @@ html:not(.js) .kopf__menu { display: none; }
   font-size: var(--text-small); line-height: 1.5; font-weight: var(--weight-semibold); color: var(--brand);
 }
 
-/* Aus dem Alltag: Rondell mit Situationen, je Situation Text links und eine Bühne
-   mit gezeichnetem Bildschirm rechts. Der Schalter zeigt den Bildschirm vorher oder danach.
-   Ohne Skript stehen beide Bildschirme untereinander, das Band lässt sich trotzdem wischen. */
+/* Aus dem Alltag: Rondell mit Situationen (Umbau 12.11.2026). Je Situation stehen Vorher und Danach
+   nebeneinander: links hell, rechts Petrol, jeweils Satz und gezeichneter Bildschirm. Geblättert wird
+   über die Reiter oder per Wischen, es gibt keinen Schalter und keine Pfeile mehr. */
 .blatt--alltag { --c: var(--accent); --ink: var(--on-accent); --x: var(--x-alltag); margin-top: var(--section-gap); }
 .alltag { padding-top: clamp(48px, 5vw, 80px); min-width: 0; }
 .alltag__kopf { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-5) var(--space-7); }
 .alltag__einleitung { max-width: 30ch; font-family: var(--font-display); font-size: var(--text-gross); line-height: 1.2; letter-spacing: -0.01em; color: var(--heading); }
-.alltag__steuer { display: flex; align-items: center; gap: var(--space-4); }
-.alltag__hinweis { font-size: var(--text-small); color: var(--text-secondary); }
-.alltag__pfeile { display: none; gap: var(--space-2); }
-.js .alltag__pfeile { display: flex; }
-.alltag__pfeil {
-  width: var(--tap-min); height: var(--tap-min); border-radius: 50%;
-  display: grid; place-items: center; cursor: pointer;
-  background: var(--brand); color: var(--bg);
-  transition: background-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), opacity var(--dur) var(--ease);
-}
-.alltag__pfeil svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; }
-.alltag__pfeil:active { transform: scale(0.94); }
-.alltag__pfeil[disabled] { opacity: 0.35; cursor: default; }
-@media (hover: hover) and (pointer: fine) { .alltag__pfeil:not([disabled]):hover { background: var(--brand-dark); } }
-
 .alltag__reiter { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-6); }
 .alltag__reiter a {
   display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-4);
-  border-radius: 999px; background: var(--surface); color: var(--text);
+  border-radius: var(--radius-control); background: var(--surface); color: var(--text);
   font-weight: var(--weight-semibold); text-decoration: none;
   transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
@@ -1026,7 +1040,7 @@ html:not(.js) .kopf__menu { display: none; }
 
 .alltag__band {
   margin-top: var(--space-5); max-width: 100%;
-  display: grid; grid-auto-flow: column; grid-auto-columns: 88%;
+  display: grid; grid-auto-flow: column; grid-auto-columns: 100%;
   gap: clamp(16px, 2vw, 24px);
   overflow-x: auto; overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory; scroll-behavior: smooth;
@@ -1035,39 +1049,38 @@ html:not(.js) .kopf__menu { display: none; }
 }
 .alltag__band:focus-visible { outline: var(--focus-ring); outline-offset: 4px; }
 .fall {
+  --p: clamp(24px, 3vw, 44px);
   scroll-snap-align: start; position: relative; /* hält die absolut gesetzten sr-only-Texte im Band */
-  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr auto;
   background: var(--surface); border-radius: var(--radius-card); overflow: hidden;
 }
-.fall__text { display: flex; flex-direction: column; gap: var(--space-4); padding: clamp(24px, 3.5vw, 48px); }
-.fall h3 {
+/* Petrol-Fläche der Danach-Hälfte; .fall__text und .buehne lösen sich auf, ihre Kinder sitzen direkt im Raster */
+.fall::before { content: ""; grid-column: 2; grid-row: 1 / 4; background: var(--brand); }
+.fall__text, .buehne { display: contents; }
+/* Der Titel steht schon im aktiven Reiter direkt darüber, bleibt aber für Screenreader und Gliederung */
+.fall h3 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.fall__vorher, .fall__danach { padding: var(--p) var(--p) 0; }
+.fall__vorher { grid-area: 1 / 1; }
+.fall__danach { grid-area: 1 / 2; color: var(--on-dark); }
+.fall__marke {
+  display: block; margin-bottom: var(--space-2);
   font-family: var(--font-display); font-weight: var(--weight-medium);
-  font-size: var(--text-h2); line-height: var(--leading-h2); letter-spacing: var(--tracking-h2); color: var(--heading);
+  font-size: var(--text-h3-v4); line-height: 1.2; color: var(--heading);
 }
-.fall p { max-width: 44ch; }
-.fall__marke { display: block; margin-bottom: var(--space-1); font-weight: var(--weight-semibold); color: var(--text-muted); }
-.fall__danach .fall__marke { color: var(--brand); }
-.fall__link { margin-top: auto; align-self: flex-start; }
+.fall__danach .fall__marke { color: var(--on-dark); }
+.fall__link { grid-area: 3 / 2; justify-self: start; margin: 0 var(--p) var(--p); }
+.fall__link:focus-visible { outline: var(--focus-ring-on-dark); }
 .alltag__link { margin-top: var(--space-4); }
 
-/* Bühne: Petrol-Fläche, darauf der Bildschirm */
-.buehne {
-  position: relative; display: grid; align-content: center; gap: var(--space-4);
-  background: var(--brand); padding: clamp(24px, 3.5vw, 48px); min-height: 360px;
-}
-.buehne__schalter { display: none; justify-self: start; padding: 4px; border-radius: 999px; background: var(--brand-dark); }
-.js .buehne__schalter { display: inline-flex; }
-.buehne__schalter button {
-  min-height: 40px; padding: 0 var(--space-4); border-radius: 999px; cursor: pointer;
-  font-weight: var(--weight-semibold); color: var(--on-dark-muted); background: transparent;
-  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
-}
-.buehne__schalter button[aria-pressed="true"] { background: var(--bg); color: var(--brand); }
+/* Bildschirme: füllen ihre Hälfte */
 .schirm {
   background: var(--bg); color: var(--text); border-radius: var(--radius-card);
   padding: var(--space-5); font-size: var(--text-small); line-height: 1.45;
-  max-width: 440px; width: 100%;
+  align-self: start; margin: var(--space-5) var(--p) var(--p);
 }
+.schirm--vorher { grid-area: 2 / 1; }
+.schirm--danach { grid-area: 2 / 2; }
+.schirm p { max-width: 44ch; }
 .schirm__kopf { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); margin-bottom: var(--space-3); font-family: var(--font-display); font-size: 1.25rem; font-weight: var(--weight-medium); color: var(--heading); }
 .schirm__zahl, .schirm__status { font-family: var(--font-body); font-size: var(--text-label); font-weight: var(--weight-semibold); padding: 2px 10px; border-radius: 999px; background: var(--accent); color: var(--on-accent); }
 .schirm__status { background: var(--surface); color: var(--brand); }
@@ -1096,27 +1109,23 @@ html:not(.js) .kopf__menu { display: none; }
 .blase--mail { justify-self: end; transform: rotate(1deg); }
 .blase--ab { justify-self: center; transform: rotate(-0.5deg); }
 
-/* Mit Skript: ein Bildschirm zur Zeit, Wechsel über Deckkraft und kurze Bewegung */
-.js .buehne { grid-template-areas: "schalter" "schirm"; }
-.js .buehne__schalter { grid-area: schalter; }
-.js .schirm { grid-area: schirm; transition: opacity 320ms var(--ease), transform 420ms var(--ease); }
-.js .buehne:not(.zeigt-danach) .schirm--danach,
-.js .buehne.zeigt-danach .schirm--vorher { opacity: 0; transform: translateY(12px) scale(0.98); pointer-events: none; visibility: hidden; transition: opacity 200ms var(--ease), transform 200ms var(--ease), visibility 0s 200ms; }
 @media (prefers-reduced-motion: reduce) {
   .alltag__band { scroll-behavior: auto; }
-  .js .schirm { transition: opacity 120ms linear !important; transform: none !important; }
 }
-
+/* Bis 900 px: Vorher oben, Danach direkt darunter auf Petrol; die nächste Karte bleibt angeschnitten */
 @media (max-width: 900px) {
-  .fall { grid-template-columns: minmax(0, 1fr); }
-  .buehne { min-height: 0; }
+  .alltag__band { grid-auto-columns: 90%; }
+  .fall { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .fall::before { grid-column: 1; grid-row: 3 / 6; }
+  .fall__vorher { grid-area: 1 / 1; }
+  .schirm--vorher { grid-area: 2 / 1; }
+  .fall__danach { grid-area: 3 / 1; }
+  .schirm--danach { grid-area: 4 / 1; }
+  .fall__link { grid-area: 5 / 1; }
 }
 @media (max-width: 600px) {
-  .alltag__band { grid-auto-columns: 90%; }
   .alltag__reiter { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); scrollbar-width: none; }
   .alltag__reiter a { flex: none; }
-  .alltag__hinweis { display: none; }
-  .alltag__kopf { align-items: start; }
 }
 
 /* So arbeite ich: Preis und Dauer je Weg */
@@ -1288,3 +1297,9 @@ html:not(.js) .kopf__menu { display: none; }
 .punkt-liste li::before { content: ""; position: absolute; left: 4px; top: 0.62em; width: 8px; height: 8px; border-radius: 50%; background: var(--brand); }
 /* Link im Preishinweis auf der Petrol-Fläche: helle Schrift (Kontrast 7,7:1) */
 .preise__hinweis a { color: var(--bg); }
+
+/* Unterseiten bis 900 px: Titel wie auf der Startseite (HeroV2, 12.11.2026). Steht am Ende, damit die Regel
+   nach .deckblatt__titel und .recht__titel greift. */
+@media (max-width: 900px) {
+  .deckblatt__titel, .recht__titel { font-size: clamp(1.875rem, 8.2vw, 2.75rem); }
+}

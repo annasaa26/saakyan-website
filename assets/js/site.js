@@ -155,13 +155,11 @@
     });
   }
 
-  /* ---------- Aus dem Alltag: Rondell mit Vorher/Danach-Schalter ---------- */
+  /* ---------- Aus dem Alltag: Rondell, geblättert wird über die Reiter oder per Wischen ---------- */
   document.querySelectorAll('[data-rondell]').forEach(function (r) {
     var band = r.querySelector('.alltag__band');
     var faelle = Array.prototype.slice.call(band.children);
     var links = Array.prototype.slice.call(r.querySelectorAll('.alltag__reiter a'));
-    var zurueck = r.querySelector('[data-zurueck]');
-    var weiter = r.querySelector('[data-weiter]');
     var aktiv = 0, sperre = 0;
     function links0(el) { return el.offsetLeft - faelle[0].offsetLeft; }
     function geheZu(i) {
@@ -177,8 +175,6 @@
       if (aktuell && aktuell.parentNode.scrollWidth > aktuell.parentNode.clientWidth) {
         aktuell.parentNode.scrollTo({ left: aktuell.offsetLeft - 16, behavior: reduce ? 'auto' : 'smooth' });
       }
-      zurueck.disabled = i === 0;
-      weiter.disabled = i === faelle.length - 1;
     }
     var queued = false;
     band.addEventListener('scroll', function () {
@@ -192,31 +188,8 @@
         if (best !== aktiv) setzeAktiv(best);
       });
     }, { passive: true });
-    zurueck.addEventListener('click', function () { geheZu(aktiv - 1); });
-    weiter.addEventListener('click', function () { geheZu(aktiv + 1); });
     links.forEach(function (a, n) {
       a.addEventListener('click', function (e) { e.preventDefault(); geheZu(n); });
-    });
-    r.querySelectorAll('.buehne').forEach(function (b) {
-      var knoepfe = b.querySelectorAll('[data-zeige]');
-      function zeige(was) {
-        b.classList.toggle('zeigt-danach', was === 'danach');
-        knoepfe.forEach(function (k) { k.setAttribute('aria-pressed', String(k.getAttribute('data-zeige') === was)); });
-      }
-      var angefasst = false;
-      knoepfe.forEach(function (k) { k.addEventListener('click', function () { angefasst = true; zeige(k.getAttribute('data-zeige')); }); });
-      zeige('vorher');
-      /* Einmal von selbst umschalten, sobald die Bühne gut sichtbar ist */
-      if (!reduce && 'IntersectionObserver' in window) {
-        var beob = new IntersectionObserver(function (es) {
-          es.forEach(function (e) {
-            if (!e.isIntersecting) return;
-            beob.disconnect();
-            window.setTimeout(function () { if (!angefasst) zeige('danach'); }, 1400);
-          });
-        }, { threshold: 0.75 });
-        beob.observe(b);
-      }
     });
     setzeAktiv(0);
   });
