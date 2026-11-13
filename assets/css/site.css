@@ -339,7 +339,7 @@ html:not(.js) .kopf__menu { display: none; }
 
 .zettel {
   position: relative;
-  margin-right: 24px;
+  margin-right: 36px;
 }
 .zettel::before {
   content: ""; position: absolute; inset: 0; z-index: 0;
@@ -383,10 +383,10 @@ html:not(.js) .kopf__menu { display: none; }
 .aufgabe__box:focus-visible ~ .aufgabe__haken { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 .aufgabe:active .aufgabe__haken { transform: scale(0.94); }
 
-/* Die Markierungsfahne ragt aus der Blattkante */
+/* Die Markierungsfahne ragt aus der Blattkante, knapp dreimal so lang wie hoch */
 .fahne {
-  position: absolute; right: -24px; top: clamp(22px, 2.4vw, 30px);
-  width: 64px; height: 30px;
+  position: absolute; right: -36px; top: clamp(22px, 2.4vw, 30px);
+  width: 84px; height: 30px;
   background: var(--accent);
   clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
   transform: scaleX(0); transform-origin: left center;
@@ -647,8 +647,8 @@ html:not(.js) .kopf__menu { display: none; }
   .einstieg__knoepfe { flex-direction: column; }
   .einstieg__knoepfe .knopf { width: 100%; }
   .reiter--titel, .blatt__kante > .reiter { padding: 0 24px; }
-  .zettel { margin-right: 18px; }
-  .fahne { right: -18px; width: 44px; }
+  .zettel { margin-right: 24px; }
+  .fahne { right: -24px; width: 64px; }
   .aufgabe { grid-template-columns: 44px minmax(0, 1fr); column-gap: var(--space-4); padding: 18px 16px; }
   .aufgabe__box { left: 16px; top: 18px; }
   .frage summary { padding: var(--space-4); }
@@ -661,10 +661,10 @@ html:not(.js) .kopf__menu { display: none; }
 
 
 /* ---------- Kleine Korrekturen aus der Überlagerungsprüfung (Ausprägung A) ---------- */
-/* Die Markierungsfahne ragt 40 px (Handy 26 px) in den Zettel: Überschrift und Satz halten Abstand */
-.aufgabe { padding-right: 56px; }
+/* Die Markierungsfahne ragt 48 px (Handy 40 px) in den Zettel: Überschrift und Satz halten Abstand */
+.aufgabe { padding-right: 64px; }
 @media (max-width: 600px) {
-  .aufgabe { padding-right: 32px; }
+  .aufgabe { padding-right: 48px; }
   /* Lochung am Anfrageblatt bleibt innerhalb des 12-px-Rands, nichts ragt über die Seitenbreite */
   .coupon__form::before, .coupon__form::after { width: 24px; height: 24px; top: -14px; }
   .coupon__form::before { left: -12px; }
