@@ -24,7 +24,7 @@
   <link rel="preload" href="assets/fonts/newsreader-var-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/source-sans-3-var-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/tokens.css?v=20261107.2">
-  <link rel="stylesheet" href="assets/css/site.css?v=20261113">
+  <link rel="stylesheet" href="assets/css/site.css?v=20261113.2">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
 {
@@ -144,65 +144,54 @@
       </div>
     </section>
 
-    <!-- Register 2: Schulungen und Workshops -->
-    <section class="blatt blatt--weitere" id="schulungen" aria-labelledby="h-weitere">
-      <div class="blatt__kante"><h2 class="reiter reiter--titel reiter--lang" id="h-weitere">Schulungen und Workshops</h2></div>
-      <div class="weitere">
-        <div class="weitere__links" data-reveal>
-          <h3 id="h-schulung">Schulungen für Teams und Verwaltungen</h3>
-          <p style="margin-bottom: var(--space-5)">Die Grundlagenschulung vermittelt, was KI-Werkzeuge können, worauf man achten muss und welche Regeln gelten, vor Ort in Sachsen oder online. Alle Teilnehmenden bekommen eine Teilnahmebestätigung. Einzeln buchbar, Festpreis nach dem Erstgespräch.</p>
-          <ul class="haken-liste">
-            <li>Grundlagenschulung als festes Format</li>
-            <li>Zusatz: Praxisteil an euren eigenen Aufgaben</li>
-            <li>Zusatz: passende Werkzeuge auswählen und gemeinsame Regeln schriftlich festhalten, auch für Kundendaten</li>
-          </ul>
-          <p style="margin-top: var(--space-5)"><a class="textlink" href="ki-schulung.html">Mehr zu den Schulungen</a></p>
-        </div>
-        <div class="laufzettel laufzettel--anwendungen" data-reveal>
-          <h3 id="h-workshops">Offene Workshops für Selbstständige</h3>
-          <p>In kleiner Runde probierst du KI-Lösungen an deinen eigenen Aufgaben aus. Du buchst einen einzelnen Platz. Die ersten Termine plane ich gerade. Wenn du dabei sein möchtest, schreib mir kurz.</p>
-          <p><a class="textlink" href="/#kontakt">Interesse melden</a></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Register 3: So läuft die Zusammenarbeit, das Petrol-Blatt -->
+    <!-- Register 2: So läuft die Zusammenarbeit. Drei Schritte als Ablauf, darunter Schulungen und Workshops als zusätzliche Bausteine -->
     <section class="blatt blatt--preise" id="angebote" aria-labelledby="h-preise">
       <div class="blatt__kante"><h2 class="reiter reiter--titel reiter--lang" id="h-preise">So läuft die Zusammenarbeit</h2></div>
       <div class="preise">
-        <ul class="preisliste" data-reveal>
-          <li class="angebot" data-reveal-item>
-            <div class="angebot__text">
-              <h3 id="h-p1">Erstgespräch</h3>
-              <p>Wir lernen uns kennen und klären, ob eine Zusammenarbeit sinnvoll ist. Hast du schon ein bestimmtes Problem im Blick, geht es im Gespräch genau darum.</p>
-            </div>
-            <p class="preis preis--frei"><span class="preis__betrag">kostenlos</span></p>
+        <ol class="phasen" data-reveal>
+          <li class="phase" data-reveal-item>
+            <span class="phase__nr" aria-hidden="true">1</span>
+            <h3 id="h-p1">Erstgespräch</h3>
+            <p>Wir lernen uns kennen und klären, ob eine Zusammenarbeit sinnvoll ist. Hast du schon eine bestimmte Aufgabe im Blick, geht es im Gespräch genau darum.</p>
+            <p>Das Gespräch ist kostenlos. Danach bekommst du ein schriftliches Angebot mit Festpreis.</p>
           </li>
-          <li class="angebot" data-reveal-item>
-            <div class="angebot__text">
-              <h3 id="h-p2">Bestandsaufnahme</h3>
-              <p>Du möchtest deinen Betrieb entlasten, weißt aber noch nicht, wo KI-Lösungen sinnvoll helfen? Ich komme zu dir in den Betrieb, und wir schauen gemeinsam auf euren Arbeitsalltag. Du erhältst eine schriftliche Empfehlung, welche Aufgaben sich eignen und womit ihr am besten anfangt.</p>
-              <p class="angebot__umfang"><strong>Enthalten:</strong> Termin vor Ort, schriftlicher Bericht mit Empfehlung und nächsten Schritten, gemeinsame Ergebnisbesprechung.</p>
-              <p class="angebot__umfang">Die kompakte Bestandsaufnahme erarbeite ich mit dir. Arbeiten mehrere Leute an den Abläufen mit, lohnt sich ein größerer Umfang mit Gesprächen in deinem Team. Du bekommst dann eine breitere Grundlage für die nächsten Schritte, und auch dieser Umfang ist <a href="bafa-foerderung.html">förderfähig</a>.</p>
-              <p class="angebot__foerderung">Für die Bestandsaufnahme kommt eine <span class="nobr">BAFA-Förderung</span> infrage. Ich unterstütze dich dabei, die Voraussetzungen zu klären und den Antrag zu stellen. <a href="bafa-foerderung.html">Mehr zur Förderung</a></p>
-            </div>
-            <p class="preis preis--satz"><span class="preis__satz">förderfähig über das BAFA</span></p>
+          <li class="phase" data-reveal-item>
+            <span class="phase__nr" aria-hidden="true">2</span>
+            <h3 id="h-p2">Bestandsaufnahme</h3>
+            <p>Ich komme zu dir in den Betrieb, und wir schauen gemeinsam auf euren Arbeitsalltag. Du erhältst eine schriftliche Empfehlung, welche Aufgaben sich eignen und womit ihr am besten anfangt.</p>
+            <p class="phase__umfang"><strong>Enthalten:</strong> Termin vor Ort, schriftlicher Bericht mit Empfehlung und nächsten Schritten, gemeinsame Ergebnisbesprechung. Arbeiten mehrere Leute an den Abläufen mit, führe ich auch Gespräche in deinem Team.</p>
+            <p class="angebot__foerderung">Für die Bestandsaufnahme kommt eine <span class="nobr">BAFA-Förderung</span> infrage. Ich unterstütze dich beim Antrag. <a href="bafa-foerderung.html">Mehr zur Förderung</a></p>
           </li>
-          <li class="angebot" data-reveal-item>
-            <div class="angebot__text">
-              <h3 id="h-p3">Eine Lösung für eine Aufgabe</h3>
-              <p>Eine wiederkehrende Aufgabe soll euch weniger Zeit und Mühe kosten. Dafür entwickle ich eine passende KI-Lösung oder richte eine geeignete Anwendung ein und zeige euch, wie ihr sie im Alltag nutzt.</p>
-              <p class="angebot__umfang"><strong>Enthalten:</strong> Einrichtung, Einweisung aller, die damit arbeiten, sowie Rückfragen und Anpassungen in den ersten zwei Wochen danach.</p>
-            </div>
-            <p class="preis preis--satz"><span class="preis__satz">in der Regel zwei bis vier Wochen</span></p>
+          <li class="phase" data-reveal-item>
+            <span class="phase__nr" aria-hidden="true">3</span>
+            <h3 id="h-p3">Eine Lösung für eine Aufgabe</h3>
+            <p>Ich entwickle für eine wiederkehrende Aufgabe eine passende KI-Lösung oder richte eine geeignete Anwendung ein. Dann zeige ich allen, wie sie im Alltag damit arbeiten. Das dauert in der Regel zwei bis vier Wochen.</p>
+            <p class="phase__umfang"><strong>Enthalten:</strong> Einrichtung, Einweisung aller, die damit arbeiten, sowie Rückfragen und Anpassungen in den ersten zwei Wochen danach.</p>
           </li>
-        </ul>
+        </ol>
+        <p class="phasen__hinweis">Weißt du schon genau, welche Aufgabe du abgeben möchtest, können wir auch direkt mit Schritt 3 beginnen.</p>
+
+        <div class="bausteine" id="schulungen" data-reveal>
+          <h3 class="bausteine__titel">Zusätzlich buchbar</h3>
+          <p class="bausteine__intro">Schulungen und Workshops kannst du zu den drei Schritten dazunehmen oder für sich buchen.</p>
+          <div class="bausteine__liste">
+            <div class="baustein">
+              <h4>Schulungen für Teams und Verwaltungen</h4>
+              <p>Eine Grundlagenschulung zu KI-Werkzeugen, vor Ort in Sachsen oder online, mit Teilnahmebestätigung. Auf Wunsch mit Praxisteil an euren eigenen Aufgaben und gemeinsamen Regeln für den Umgang mit Kundendaten.</p>
+              <a class="textlink" href="ki-schulung.html">Mehr zu den Schulungen</a>
+            </div>
+            <div class="baustein">
+              <h4>Offene Workshops für Selbstständige</h4>
+              <p>In kleiner Runde probierst du KI-Lösungen an deinen eigenen Aufgaben aus und buchst dafür einen einzelnen Platz. Die ersten Termine plane ich gerade.</p>
+              <a class="textlink" href="/#kontakt">Interesse melden</a>
+            </div>
+          </div>
+        </div>
+
         <div class="preise__fuss" data-reveal>
           <div class="preise__hinweis">
-            <p>Wie viel Aufwand eine Aufgabe macht, ist von Betrieb zu Betrieb sehr unterschiedlich. Deshalb lege ich den Preis für jeden Auftrag einzeln fest.</p>
-            <p>Angebote ausschließlich für Unternehmen, Festpreise netto zzgl. USt.</p>
-            <p>Ist dir Datenschutz besonders wichtig, empfehle ich eine KI-Plattform, die Daten in der EU speichert und nicht zum Training nutzt. Greife ich auf Kundendaten zu, schließen wir vorher einen Vertrag zur Auftragsverarbeitung.</p>
-            <p>Nach dem Erstgespräch erhältst du ein schriftliches Angebot mit klarem Leistungsumfang und Festpreis. Danach entscheidest du in Ruhe. Termine vor Ort sind in <a href="ki-beratung-sachsen.html">ganz Sachsen</a> möglich. Je nach Lösung können zusätzliche Software- oder Betriebskosten entstehen. Diese besprechen wir vor der Beauftragung.</p>
+            <p>Wie viel Aufwand eine Aufgabe macht, ist von Betrieb zu Betrieb sehr unterschiedlich. Deshalb lege ich den Preis für jeden Auftrag einzeln fest. Angebote ausschließlich für Unternehmen, Festpreise netto zzgl. USt. Je nach Lösung können zusätzliche Software- oder Betriebskosten entstehen. Diese besprechen wir vor der Beauftragung.</p>
+            <p>Ist dir Datenschutz besonders wichtig, empfehle ich eine KI-Plattform, die Daten in der EU speichert und nicht zum Training nutzt. Greife ich auf Kundendaten zu, schließen wir vorher einen Vertrag zur Auftragsverarbeitung. Termine vor Ort sind in <a href="ki-beratung-sachsen.html">ganz Sachsen</a> möglich.</p>
           </div>
           <a class="knopf knopf--koralle preise__knopf" href="/#kontakt">Kostenlos besprechen, was passt</a>
         </div>

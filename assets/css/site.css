@@ -828,6 +828,80 @@ html:not(.js) .kopf__menu { display: none; }
 }
 .preise__knopf { min-height: 56px; }
 
+/* Ablauf in drei Phasen: helles Blatt, die Nummern sind durch eine gepunktete Linie verbunden. Schmal untereinander, Linie links. */
+.phasen {
+  --phasen-gap: clamp(28px, 3.5vw, 56px);
+  list-style: none;
+  background: var(--bg); color: var(--text);
+  border-radius: var(--radius-card);
+  padding: clamp(28px, 3.5vw, 48px) clamp(24px, 4vw, 56px);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--phasen-gap);
+}
+.phase { position: relative; }
+.phase__nr {
+  display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
+  background: var(--accent); color: var(--on-accent);
+  font-family: var(--font-display); font-size: 1.5rem; line-height: 1;
+  font-variant-numeric: lining-nums;
+  /* Newsreader hat über der Grundlinie mehr Raum als darunter, die Ziffern säßen sonst gut 2 px zu hoch */
+  box-sizing: border-box; padding-top: 0.18em;
+  margin-bottom: var(--space-4);
+}
+/* Linie von der Nummer bis kurz vor die nächste Nummer */
+.phase:not(:last-child)::after {
+  content: ""; position: absolute; top: 24px;
+  left: calc(52px + 12px); right: calc(-1 * var(--phasen-gap) + 12px);
+  border-top: 4px dotted var(--accent);
+}
+.phase h3 {
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-h3-v4); line-height: 1.2; letter-spacing: -0.01em; color: var(--heading);
+  text-wrap: balance;
+}
+.phase p { margin-top: var(--space-2); }
+.phase .phase__umfang { margin-top: var(--space-3); font-size: var(--text-small); line-height: 1.55; }
+.phase__umfang strong { font-weight: var(--weight-semibold); }
+.phase .angebot__foerderung {
+  position: relative; margin-top: var(--space-4); padding-left: 26px;
+  color: var(--text); font-size: var(--text-small); line-height: 1.5;
+}
+.phasen__hinweis { margin-top: var(--space-4); font-size: var(--text-small); color: var(--bg); }
+
+/* Schulungen und Workshops: zusätzliche Bausteine, bewusst kleiner und ohne eigenes Blatt */
+.bausteine { margin-top: clamp(48px, 6vw, 88px); }
+.bausteine__titel {
+  font-family: var(--font-display); font-weight: var(--weight-medium);
+  font-size: var(--text-h3-v4); line-height: 1.2; letter-spacing: -0.01em; color: var(--bg);
+}
+.bausteine__intro { margin-top: var(--space-2); max-width: 60ch; }
+.bausteine__liste {
+  margin-top: var(--space-5);
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 2.5vw, 32px);
+}
+.baustein {
+  border: 2px dashed var(--bg); border-radius: var(--radius-card);
+  padding: clamp(20px, 2.5vw, 32px);
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3);
+}
+.baustein h4 { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: 1.25rem; line-height: 1.25; color: var(--bg); }
+.baustein h4, .baustein p { margin: 0; }
+.baustein p { max-width: 52ch; }
+.baustein .textlink { margin-top: auto; color: var(--bg); }
+
+@media (max-width: 900px) {
+  .phasen { grid-template-columns: minmax(0, 1fr); }
+  .phase { display: grid; grid-template-columns: 52px minmax(0, 1fr); column-gap: var(--space-4); align-content: start; }
+  .phase__nr { grid-row: 1 / span 6; margin-bottom: 0; }
+  .phase > :not(.phase__nr) { grid-column: 2; }
+  .phase h3 { padding-top: 12px; }
+  /* Linie senkrecht unter der Nummer bis zur nächsten */
+  .phase:not(:last-child)::after {
+    left: 24px; right: auto; top: calc(52px + 10px); bottom: calc(-1 * var(--phasen-gap) + 10px);
+    border-top: 0; border-left: 4px dotted var(--accent);
+  }
+  .bausteine__liste { grid-template-columns: minmax(0, 1fr); }
+}
+
 @media (max-width: 900px) {
   .blatt--weitere { --x: 0.3; }
   .blatt--preise { --x: 0.6; }
