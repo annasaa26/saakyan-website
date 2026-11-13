@@ -935,8 +935,8 @@ html:not(.js) .kopf__menu { display: none; }
 
 /* =====================================================================
    Über mich (ueber-mich.html)
-   Breit: links Titel, Text und Werdegang, rechts Foto und Knopf, beide Spalten schließen unten bündig ab.
-   Schmal: Titel, Foto, Text, Werdegang, Knopf.
+   Breit: links Titel und Text, rechts Foto, Zitat, Werdegang und Knopf. So sind beide Spalten etwa gleich hoch.
+   Schmal: Titel, Foto, Text, Zitat, Werdegang, Knopf.
    ===================================================================== */
 .vorstellung {
   max-width: var(--page-max); margin: 0 auto;
@@ -954,14 +954,12 @@ html:not(.js) .kopf__menu { display: none; }
 /* Ausschnitt 824 × 1030 aus dem Foto 1040 × 1300 (ab x 128, y 15): endet knapp unter der rechten Hand.
    Werte relativ zur Rahmenbreite, dadurch bleibt der Ausschnitt in jeder Breite gleich. */
 .vorstellung__bild img { width: 126.2%; max-width: none; height: auto; margin: -1.82% 0 0 -15.53%; }
-.vorstellung__abriss { margin-top: auto; border-top: 0; border-radius: var(--radius-card); }
+.vorstellung__abriss { margin: 0; border-top: 0; border-radius: var(--radius-card); grid-template-columns: 1fr; }
 .vorstellung__abriss ::selection { background: var(--bg); color: var(--brand); }
-.vorstellung__knopf { min-height: 56px; margin-top: auto; }
+.vorstellung__knopf { min-height: 56px; }
 /* Die Einblend-Zeile schneidet sonst die Punkte auf dem Ü ab */
 .vorstellung__titel .zeile { padding-top: 0.2em; margin-top: -0.2em; }
 
-/* Wird der Text höher als das Foto, bleibt der Knopf direkt unter dem Foto */
-@media (max-width: 1140px) { .vorstellung__knopf { margin-top: 0; } }
 
 @media (max-width: 900px) {
   .vorstellung { grid-template-columns: minmax(0, 1fr); }
@@ -969,8 +967,9 @@ html:not(.js) .kopf__menu { display: none; }
   .vorstellung__titel { order: 1; }
   .vorstellung__bild { order: 2; max-width: 420px; }
   .vorstellung__text { order: 3; }
-  .vorstellung__abriss { order: 4; margin-top: 0; }
-  .vorstellung__knopf { order: 5; margin-top: 0; }
+  .vorstellung__zitat { order: 4; }
+  .vorstellung__abriss { order: 5; }
+  .vorstellung__knopf { order: 6; }
 }
 
 /* =====================================================================
@@ -1199,8 +1198,8 @@ html:not(.js) .kopf__menu { display: none; }
   margin: var(--space-6) 0 var(--space-2);
 }
 .thema__text p { margin: 0 0 var(--space-4); }
-.vorstellung__zitat { margin: var(--space-7) 0 var(--space-6); max-width: 34rem; }
-.vorstellung__zitat p { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.2; letter-spacing: -0.01em; color: var(--brand); }
+.vorstellung__zitat { margin: var(--space-2) 0; }
+.vorstellung__zitat p { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.35; letter-spacing: -0.01em; color: var(--brand); }
 .vorstellung__zitat p::before { content: "„"; }
 .vorstellung__zitat p::after { content: "“"; }
 .thema__text .rechnung { padding: var(--space-4) var(--space-5); border-radius: var(--radius-card); background: var(--bg); }
