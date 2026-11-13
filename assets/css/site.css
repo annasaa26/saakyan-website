@@ -335,7 +335,7 @@ html:not(.js) .kopf__menu { display: none; }
 .bereiche__seite { align-self: start; position: sticky; top: 120px; }
 .bereiche__einleitung { font-family: var(--font-display); font-size: var(--text-gross); line-height: 1.2; letter-spacing: -0.01em; }
 .bereiche__zeile { margin-top: var(--space-6); color: var(--text); max-width: 34ch; }
-.bereiche__seite .textlink { margin-top: var(--space-4); }
+.bereiche__seite .textlink { margin-top: var(--space-4); display: table; } /* jeder Link in eigener Zeile, auch wenn beide nebeneinander passen */
 
 .zettel {
   position: relative;
