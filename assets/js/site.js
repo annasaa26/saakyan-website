@@ -1,5 +1,5 @@
 /* saakyan.ai, gemeinsames Skript aller Seiten (Stand 28.10.2026)
-   Menü, Aufgabenzettel → Anfrageblatt, Formular (Formspark mit Botpoison), Einblendungen, Fotobewegung.
+   Menü, Formular (Formspark mit Botpoison), Einblendungen, Fotobewegung.
    Ohne JS bleibt alles sichtbar und das Formular sendet normal an Formspark. */
 (function () {
   'use strict';

@@ -315,91 +315,14 @@ html:not(.js) .kopf__menu { display: none; }
   white-space: nowrap; margin: 0;
 }
 .blatt__kante { max-width: none; }
-.blatt--bereiche { --c: var(--surface); --ink: var(--brand); --x: 0; }
 /* Petrol-Blatt der Startseite: Zettel --surface auf --brand 7,1:1, Reitertext --bg auf --brand 7,7:1 */
 .blatt--anfang { --c: var(--brand); --ink: var(--bg); --x: var(--x-anfang); margin-top: var(--section-gap); background: var(--brand); padding-bottom: clamp(64px, 8vw, 128px); }
 .blatt--anfang .reiter::selection { background: var(--bg); color: var(--brand); }
 .blatt--fragen { --c: var(--accent); --ink: var(--on-accent); /* Koralle als Akzent, Schrift --text 5,5:1 */ --x: var(--x-fragen); margin-top: var(--section-gap); }
-.blatt--kontakt { --c: var(--surface); --ink: var(--brand); /* Reiter wie „Wobei ich unterstütze“, Anfrageblatt bleibt Koralle */ --x: var(--x-kontakt); margin-top: var(--section-gap); }
+.blatt--kontakt { --c: var(--surface); --ink: var(--brand); /* Reiter hell, Anfrageblatt bleibt Koralle */ --x: var(--x-kontakt); margin-top: var(--section-gap); }
 
 .blatt > div:not(.blatt__kante):not(.stimmen) {
   max-width: var(--page-max); margin-inline: auto; padding-inline: var(--gutter);
-}
-
-/* ---------- Wobei ich unterstütze: der Aufgabenzettel ---------- */
-.bereiche {
-  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-  gap: clamp(32px, 5vw, 80px);
-  padding-top: clamp(48px, 6vw, 88px);
-}
-.bereiche__seite { align-self: start; position: sticky; top: 120px; }
-.bereiche__einleitung { font-family: var(--font-display); font-size: var(--text-gross); line-height: 1.2; letter-spacing: -0.01em; }
-.bereiche__zeile { margin-top: var(--space-6); color: var(--text); max-width: 34ch; }
-.bereiche__seite .textlink { margin-top: var(--space-4); display: table; } /* jeder Link in eigener Zeile, auch wenn beide nebeneinander passen */
-
-.zettel {
-  position: relative;
-  margin-right: 36px;
-}
-.zettel::before {
-  content: ""; position: absolute; inset: 0; z-index: 0;
-  background: var(--surface);
-  clip-path: var(--zack-unten);
-  border-radius: var(--radius-card) var(--radius-card) 0 0;
-}
-.zettel__liste { position: relative; z-index: 1; padding: clamp(16px, 2vw, 24px) 0 clamp(32px, 3vw, 48px); }
-.aufgabe {
-  position: relative;
-  display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: var(--space-5);
-  padding: clamp(18px, 2vw, 26px) clamp(20px, 3vw, 40px);
-  transition: opacity var(--t-hover) ease;
-}
-.aufgabe + .aufgabe { margin-top: 0; }
-.aufgabe h3 {
-  grid-column: 2; font-family: var(--font-display); font-weight: var(--weight-medium);
-  font-size: var(--text-h3-v4); line-height: 1.2; letter-spacing: -0.01em; color: var(--heading);
-}
-.aufgabe p { grid-column: 2; margin-top: var(--space-2); max-width: 52ch; }
-.aufgabe__box {
-  position: absolute; opacity: 0; width: 44px; height: 44px; margin: 0;
-  left: clamp(20px, 3vw, 40px); top: clamp(18px, 2vw, 26px);
-}
-.aufgabe__flaeche { position: absolute; inset: 0; z-index: 2; cursor: pointer; }
-.aufgabe__haken {
-  grid-column: 1; grid-row: 1 / span 2; align-self: start;
-  width: 44px; height: 44px; border-radius: var(--radius-control);
-  border: 2px solid var(--brand); background: var(--bg);
-  position: relative; margin-top: -4px;
-  transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
-}
-.aufgabe__haken::after {
-  content: ""; position: absolute; left: 14px; top: 7px; width: 11px; height: 20px;
-  border: solid var(--bg); border-width: 0 3px 3px 0;
-  transform: rotate(45deg) scale(0.4); opacity: 0;
-  transition: transform var(--t-ui) var(--ease-out), opacity var(--t-hover) ease;
-}
-.aufgabe__box:checked ~ .aufgabe__haken { background: var(--brand); }
-.aufgabe__box:checked ~ .aufgabe__haken::after { transform: rotate(45deg) scale(1); opacity: 1; }
-.aufgabe__box:focus-visible ~ .aufgabe__haken { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
-.aufgabe:active .aufgabe__haken { transform: scale(0.94); }
-
-/* Die Markierungsfahne ragt aus der Blattkante, knapp dreimal so lang wie hoch */
-.fahne {
-  position: absolute; right: -36px; top: clamp(22px, 2.4vw, 30px);
-  width: 84px; height: 30px;
-  background: var(--accent);
-  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
-  transform: scaleX(0); transform-origin: left center;
-  transition: transform var(--t-ui) var(--ease-out);
-  z-index: 0;
-}
-.aufgabe__box:checked ~ .fahne { transform: scaleX(1); }
-@media (hover: hover) and (pointer: fine) {
-  .aufgabe:hover { background: var(--bg); } /* statt Abdimmen der übrigen Zeilen (Kontrast bleibt voll) */
-  .aufgabe:hover .fahne { transform: scaleX(0.35); }
-  .aufgabe:hover .aufgabe__box:checked ~ .fahne { transform: scaleX(1); }
-  .aufgabe:hover .aufgabe__haken { background: var(--surface); }
-  .aufgabe:hover .aufgabe__box:checked ~ .aufgabe__haken { background: var(--brand-dark); }
 }
 
 /* ---------- Laufzettel (So arbeite ich, Leistungen) ---------- */
@@ -527,15 +450,6 @@ html:not(.js) .kopf__menu { display: none; }
   border-left: 5px dotted var(--bg);
   display: flex; flex-direction: column; gap: var(--space-4);
 }
-.coupon__fahnen { display: flex; flex-wrap: wrap; gap: var(--space-2); }
-.coupon__fahnen li {
-  background: var(--bg); color: var(--brand);
-  padding: var(--space-2) var(--space-5);
-  font-weight: var(--weight-semibold); font-size: var(--text-label); line-height: 1.3;
-  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
-  animation: fahne-rein var(--t-ui) var(--ease-out);
-}
-@keyframes fahne-rein { from { transform: translateX(-12px); opacity: 0; } }
 .feld { display: flex; flex-direction: column; gap: var(--space-2); }
 .feld label { font-weight: var(--weight-semibold); font-size: var(--text-body); color: var(--text); }
 .feld input, .feld textarea {
@@ -604,7 +518,6 @@ html:not(.js) .kopf__menu { display: none; }
   .js [data-reveal].is-in { opacity: 1; transform: none; }
   .js [data-reveal-item] { opacity: 0; transform: translateY(16px); transition: opacity 600ms var(--ease-out), transform 700ms var(--ease-out); transition-delay: calc(var(--n, 0) * 70ms); }
   .js .is-in [data-reveal-item], .js [data-reveal-item].is-in { opacity: 1; transform: none; }
-  .js .aufgabe[data-reveal-item].is-in { transition: opacity var(--t-hover) ease, transform 700ms var(--ease-out); }
 
   .js .shutter { clip-path: inset(0 0 100% 0); transition: clip-path 1100ms var(--ease-in-out); }
   .js .is-in .shutter { clip-path: inset(0 0 0 0 round var(--radius-media)); }
@@ -616,18 +529,15 @@ html:not(.js) .kopf__menu { display: none; }
 /* Nur Bewegung, keine Deckkraft: das Foto ist das größte Element beim Laden (LCP) und soll sofort gemalt werden */
 @keyframes person-rein { from { transform: translateY(40px) scale(0.97); } }
 @media (prefers-reduced-motion: reduce) {
-  .fahne, .aufgabe__haken::after, .frage__zeichen, .frage__zeichen::before, .frage__zeichen::after { transition: opacity 120ms ease, background-color 120ms ease !important; }
-  .fahne { transform: none; opacity: 0; }
-  .aufgabe__box:checked ~ .fahne { opacity: 1; }
-  .aufgabe:hover .fahne { transform: none; }
+  .frage__zeichen, .frage__zeichen::before, .frage__zeichen::after { transition: opacity 120ms ease, background-color 120ms ease !important; }
   .kopf__nav.is-open { animation: none !important; }
 }
 
 /* ---------- Mittelbreite ---------- */
 @media (max-width: 900px) {
   :root { --x-alltag: 0.2; --x-anfang: 0.4; --x-warum: 0.6; --x-fragen: 0.8; --x-kontakt: 1; }
-  .bereiche, .anfang { grid-template-columns: 1fr; }
-  .bereiche__seite, .anfang__bild { position: static; }
+  .anfang { grid-template-columns: 1fr; }
+  .anfang__bild { position: static; }
   .anfang__bild { max-width: 420px; }
   .fragen { grid-template-columns: 1fr; }
   .coupon { grid-template-columns: 1fr; }
@@ -647,10 +557,6 @@ html:not(.js) .kopf__menu { display: none; }
   .einstieg__knoepfe { flex-direction: column; }
   .einstieg__knoepfe .knopf { width: 100%; }
   .reiter--titel, .blatt__kante > .reiter { padding: 0 24px; }
-  .zettel { margin-right: 24px; }
-  .fahne { right: -24px; width: 64px; }
-  .aufgabe { grid-template-columns: 44px minmax(0, 1fr); column-gap: var(--space-4); padding: 18px 16px; }
-  .aufgabe__box { left: 16px; top: 18px; }
   .frage summary { padding: var(--space-4); }
   .frage__antwort { padding: 0 var(--space-4) var(--space-4); }
   .coupon { margin-inline: 12px !important; }
@@ -661,10 +567,7 @@ html:not(.js) .kopf__menu { display: none; }
 
 
 /* ---------- Kleine Korrekturen aus der Überlagerungsprüfung (Ausprägung A) ---------- */
-/* Die Markierungsfahne ragt 48 px (Handy 40 px) in den Zettel: Überschrift und Satz halten Abstand */
-.aufgabe { padding-right: 64px; }
 @media (max-width: 600px) {
-  .aufgabe { padding-right: 48px; }
   /* Lochung am Anfrageblatt bleibt innerhalb des 12-px-Rands, nichts ragt über die Seitenbreite */
   .coupon__form::before, .coupon__form::after { width: 24px; height: 24px; top: -14px; }
   .coupon__form::before { left: -12px; }
@@ -721,7 +624,6 @@ html:not(.js) .kopf__menu { display: none; }
 .deckblatt__absatz { font-size: var(--text-body); line-height: 1.6; max-width: 52ch; }
 
 .blatt--aufgaben { --c: var(--surface); --ink: var(--brand); --x: 0; }
-.blatt--weitere { --c: var(--accent); --ink: var(--on-accent); --x: 0.4; margin-top: var(--section-gap); }
 .blatt--preise { --c: var(--brand); --ink: var(--bg); --x: 0.75; margin-top: var(--section-gap); }
 
 /* Aufgaben im Arbeitsalltag: ein Verzeichnisblatt, je Bereich eine Zeile (Titel links, Aufgaben rechts) */
@@ -738,7 +640,7 @@ html:not(.js) .kopf__menu { display: none; }
   padding-block: clamp(24px, 3vw, 40px);
 }
 .bereich + .bereich { border-top: 5px dotted var(--line-field); }
-.bereich h3, .weitere h3 {
+.bereich h3 {
   font-family: var(--font-display); font-weight: var(--weight-medium);
   font-size: var(--text-h3-v4); line-height: 1.2; letter-spacing: -0.01em; color: var(--heading);
   text-wrap: balance;
@@ -747,33 +649,7 @@ html:not(.js) .kopf__menu { display: none; }
   .bereich .haken-liste { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-6); align-items: start; }
 }
 
-/* Weitere Formen der Unterstützung: links Werkzeuge mit Datenschutz-Notiz, rechts der Laufzettel „Kleine eigene Anwendungen“ */
-.weitere {
-  display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
-  gap: clamp(32px, 6vw, 96px);
-  padding-top: clamp(40px, 5vw, 72px);
-  align-items: start;
-}
-.weitere h3 { margin-bottom: var(--space-5); }
-.notiz {
-  position: relative;
-  margin-top: var(--space-7);
-  background: var(--surface);
-  border-radius: var(--radius-control);
-  padding: var(--space-6) var(--space-6) var(--space-4);
-  max-width: 60ch;
-}
-.notiz::before {
-  content: ""; position: absolute; top: -10px; right: 24px; width: 28px; height: 44px;
-  background: var(--accent);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 10px), 0 100%);
-}
-.notiz p { padding-right: 40px; }
-.notiz .textlink { margin-top: var(--space-2); }
-.laufzettel--anwendungen { max-width: none; }
-.laufzettel--anwendungen > p { margin-bottom: var(--space-5); max-width: 52ch; }
-
-/* Angebote und Preise: Petrol-Blatt, darauf die Preisliste als heller Zettel */
+/* So läuft die Zusammenarbeit: Petrol-Blatt mit Ablauf, Bausteinen und Hinweisen */
 .blatt--preise {
   background: var(--brand); color: var(--bg);
   padding-bottom: clamp(64px, 8vw, 128px);
@@ -782,32 +658,6 @@ html:not(.js) .kopf__menu { display: none; }
 .blatt--preise ::selection { background: var(--bg); color: var(--brand); }
 .blatt--preise :focus-visible { outline: var(--focus-ring-on-dark); }
 .preise { padding-top: clamp(40px, 4.5vw, 72px); }
-.preisliste {
-  background: var(--bg); color: var(--text);
-  clip-path: var(--zack-unten);
-  border-radius: var(--radius-card) var(--radius-card) 0 0;
-  padding: clamp(8px, 2vw, 16px) clamp(24px, 4vw, 56px) clamp(40px, 4vw, 64px);
-}
-.angebot {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(10rem, 15rem);
-  gap: var(--space-4) clamp(32px, 5vw, 80px);
-  align-items: baseline;
-  padding-block: clamp(24px, 3vw, 36px);
-}
-.angebot + .angebot { border-top: 5px dotted var(--line-field); }
-.angebot h3 {
-  font-family: var(--font-display); font-weight: var(--weight-medium);
-  font-size: var(--text-h3-v4); line-height: 1.2; letter-spacing: -0.01em; color: var(--heading);
-}
-.angebot__text p { margin-top: var(--space-2); max-width: 60ch; }
-.preis {
-  font-family: var(--font-display); color: var(--brand);
-  font-size: clamp(1.375rem, 1.2rem + 0.5vw, 1.75rem); line-height: 1.15; letter-spacing: -0.01em;
-  text-align: right;
-}
-.preis__ab { font-size: 0.7em; letter-spacing: 0; }
-.preis__betrag { white-space: nowrap; }
-.preis--satz { font-size: clamp(1.1875rem, 1.05rem + 0.3vw, 1.375rem); line-height: 1.25; text-wrap: balance; }
 .preise__fuss {
   margin-top: var(--space-7);
   display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-5) var(--space-7);
@@ -816,11 +666,7 @@ html:not(.js) .kopf__menu { display: none; }
 .preise__hinweis { color: var(--bg); max-width: 72ch; font-size: var(--text-small); line-height: 1.55; } /* Stufe „Klein“ wie alle Zusatzhinweise */
 .preise__hinweis p { text-wrap: pretty; }
 .preise__hinweis p + p { margin-top: var(--space-3); }
-/* BAFA-Hinweis unter der Bestandsaufnahme: kein Kasten, dunkle Schrift (16 px), nur das kleine Koralle-Lesezeichen hebt ihn hervor */
-.angebot__text .angebot__foerderung {
-  position: relative; margin-top: var(--space-4); padding-left: 26px; max-width: 60ch;
-  color: var(--text); font-size: var(--text-small); line-height: 1.5;
-}
+/* BAFA-Hinweis unter der Bestandsaufnahme: nur das kleine Koralle-Lesezeichen hebt ihn hervor */
 .angebot__foerderung::before {
   content: ""; position: absolute; left: 0; top: 0.2em; width: 12px; height: 18px;
   background: var(--accent);
@@ -904,19 +750,14 @@ html:not(.js) .kopf__menu { display: none; }
 }
 
 @media (max-width: 900px) {
-  .blatt--weitere { --x: 0.3; }
   .blatt--preise { --x: 0.6; }
-  .bereich, .weitere { grid-template-columns: 1fr; }
-  .angebot { grid-template-columns: 1fr; }
-  .preis { text-align: left; }
+  .bereich { grid-template-columns: 1fr; }
   .preise__fuss { grid-template-columns: 1fr; justify-items: start; }
 }
 @media (max-width: 600px) {
-  .blatt--weitere, .blatt--preise { --x: 0; }
-  .verzeichnis, .preisliste { padding-inline: 20px; }
-  .preise > .preisliste { margin-inline: calc(var(--gutter) * -0.5); }
+  .blatt--preise { --x: 0; }
+  .verzeichnis { padding-inline: 20px; }
   .preise__knopf { width: 100%; }
-  .notiz { padding: var(--space-5) var(--space-5) var(--space-3); }
 }
 
 
@@ -1242,11 +1083,9 @@ html:not(.js) .kopf__menu { display: none; }
 .warum__abriss { margin-top: 0; border-top: 0; border-radius: var(--radius-card); grid-template-columns: minmax(0, 1fr); }
 .warum__abriss ::selection { background: var(--bg); color: var(--brand); }
 
-/* Leistungsseite: Sprunglink zu den Preisen, Hinweis unter dem Verzeichnis, Umfang je Angebot */
+/* Leistungsseite: Sprunglink zum Ablauf, Hinweis unter dem Verzeichnis */
 .deckblatt .textlink { margin-top: var(--space-3); }
 .verzeichnis__mehr { margin-top: var(--space-6); }
-.angebot__text .angebot__umfang { margin-top: var(--space-3); font-size: var(--text-small); line-height: 1.55; }
-.angebot__umfang strong { font-weight: var(--weight-semibold); }
 
 @media (max-width: 900px) {
   .warum { grid-template-columns: minmax(0, 1fr); }
