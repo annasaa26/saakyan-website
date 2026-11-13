@@ -867,8 +867,9 @@ html:not(.js) .kopf__menu { display: none; }
 }
 .phasen__hinweis { margin-top: var(--space-4); font-size: var(--text-small); color: var(--bg); }
 
-/* Schulungen und Workshops: zusätzliche Bausteine, bewusst kleiner und ohne eigenes Blatt */
+/* Schulungen und Workshops: zusätzliche Bausteine als helle Karten, kleiner als das Ablaufblatt */
 .bausteine { margin-top: clamp(48px, 6vw, 88px); }
+.bausteine + .preise__fuss { margin-top: clamp(48px, 6vw, 88px); }
 .bausteine__titel {
   font-family: var(--font-display); font-weight: var(--weight-medium);
   font-size: var(--text-h3-v4); line-height: 1.2; letter-spacing: -0.01em; color: var(--bg);
@@ -879,14 +880,14 @@ html:not(.js) .kopf__menu { display: none; }
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 2.5vw, 32px);
 }
 .baustein {
-  border: 2px dashed var(--bg); border-radius: var(--radius-card);
-  padding: clamp(20px, 2.5vw, 32px);
+  background: var(--surface); color: var(--text); border-radius: var(--radius-card);
+  padding: clamp(24px, 3vw, 36px);
   display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3);
 }
-.baustein h4 { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: 1.25rem; line-height: 1.25; color: var(--bg); }
+.baustein h4 { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: 1.25rem; line-height: 1.25; color: var(--heading); }
 .baustein h4, .baustein p { margin: 0; }
 .baustein p { max-width: 52ch; }
-.baustein .textlink { margin-top: auto; color: var(--bg); }
+.baustein .textlink { margin-top: auto; }
 
 @media (max-width: 900px) {
   .phasen { grid-template-columns: minmax(0, 1fr); }
