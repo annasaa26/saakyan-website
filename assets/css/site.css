@@ -841,7 +841,7 @@ html:not(.js) .kopf__menu { display: none; }
 .phase__nr {
   display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
   background: var(--accent); color: var(--on-accent);
-  font-family: var(--font-display); font-size: 1.5rem; line-height: 1;
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: var(--weight-semibold); line-height: 1;
   font-variant-numeric: lining-nums;
   /* Newsreader hat über der Grundlinie mehr Raum als darunter, die Ziffern säßen sonst gut 2 px zu hoch */
   box-sizing: border-box; padding-top: 0.18em;
