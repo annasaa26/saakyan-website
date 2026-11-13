@@ -1200,6 +1200,24 @@ html:not(.js) .kopf__menu { display: none; }
 @media (max-width: 600px) {
   .alltag__reiter { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); scrollbar-width: none; }
   .alltag__reiter a { flex: none; }
+  /* Handy: eine Karte passt auf einen Bildschirm, damit man nicht zwischen Vorher und Danach hoch- und runterscrollen muss */
+  .fall { --p: 18px; }
+  .fall__vorher, .fall__danach { padding-top: 16px; font-size: var(--text-small); line-height: 1.5; }
+  .fall__marke { font-size: 1.125rem; margin-bottom: 2px; }
+  .schirm { margin: 10px var(--p) 16px; padding: 12px; font-size: 0.8125rem; line-height: 1.4; }
+  .aufgaben li { flex-direction: row; justify-content: space-between; gap: var(--space-3); padding-left: 34px; }
+  .aufgaben li::before { left: 10px; top: 9px; width: 14px; height: 14px; }
+  .schirm--verstreut .blase:nth-child(n+3) { display: none; }
+  .schirm__kopf { font-size: 1rem; margin-bottom: 8px; }
+  .post li, .aufgaben li, .tag li { padding: 6px 10px; }
+  .post li + li, .tag li + li, .aufgaben li + li { margin-top: 3px; }
+  .post li:nth-child(n+4), .tag li:nth-child(n+4), .posten li:nth-child(n+4) { display: none; }
+  .posten li { padding: 4px 0 4px 10px; }
+  .schirm__brief { padding: 8px 10px; }
+  .schirm__aktion { margin-top: 8px; padding: 6px 12px; }
+  .schirm--verstreut { padding: 0; gap: 6px; }
+  .blase { padding: 8px 12px; }
+  .fall__link { margin: 0 var(--p) 14px; }
 }
 
 /* So arbeite ich: Preis und Dauer je Weg */
