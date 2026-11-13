@@ -29,27 +29,6 @@
     });
   }
 
-  /* ---------- Aufgabenzettel: markierte Bereiche wandern ins Anfrageblatt ---------- */
-  var boxes = Array.prototype.slice.call(document.querySelectorAll('.aufgabe__box'));
-  var fahnen = document.querySelector('.coupon__fahnen');
-  var hidden = document.querySelector('input[name="bereiche"]');
-  function syncFahnen() {
-    if (!fahnen) return;
-    var chosen = boxes.filter(function (b) { return b.checked; }).map(function (b) { return b.value; });
-    var existing = {};
-    Array.prototype.forEach.call(fahnen.children, function (li) { existing[li.textContent] = li; });
-    fahnen.textContent = '';
-    chosen.forEach(function (name) {
-      var li = existing[name] || document.createElement('li');
-      li.textContent = name;
-      fahnen.appendChild(li);
-    });
-    fahnen.hidden = chosen.length === 0;
-    if (hidden) { hidden.value = chosen.join('; '); hidden.disabled = chosen.length === 0; }
-  }
-  boxes.forEach(function (b) { b.addEventListener('change', syncFahnen); });
-  syncFahnen();
-
   /* ---------- Formular: Formspark mit Botpoison (wie bisher in app.js) ---------- */
   var form = document.getElementById('anfrage');
   if (form) {

@@ -244,7 +244,7 @@ html:not(.js) .kopf__menu { display: none; }
 }
 .einstieg__person img { width: 100%; }
 /* Ab 901 px: Text links, Anna rechts über die ganze Höhe. Fotobreite an die Fensterhöhe gekoppelt
-   (Foto 1010 × 1420, Höhe = Breite × 1,41), damit der Reiter „Wobei ich unterstütze“ bei 1280 × 800 ganz
+   (Foto 1010 × 1420, Höhe = Breite × 1,41), damit der Reiter „Klingt das vertraut?“ bei 1280 × 800 ganz
    im ersten Bildschirm steht. Die Titelgröße folgt der freien Spaltenbreite, damit „Verwaltungsaufwand.“
    nie überläuft (13,2 = Breite der längsten Zeile je Pixel Schriftgröße, mit Reserve).
    Das Foto ragt um einen Teil des Seitenrands nach rechts hinaus (Bildgrund in Seitenfarbe). */
@@ -1099,6 +1099,8 @@ html:not(.js) .kopf__menu { display: none; }
    nebeneinander: links hell, rechts Petrol, jeweils Satz und gezeichneter Bildschirm. Geblättert wird
    über die Reiter oder per Wischen, es gibt keinen Schalter und keine Pfeile mehr. */
 .blatt--alltag { --c: var(--accent); --ink: var(--on-accent); --x: var(--x-alltag); margin-top: var(--section-gap); }
+/* Folgt direkt auf den Einstieg: Reiterkante schließt ohne Abstand an das Foto an */
+.einstieg + .blatt--alltag { margin-top: 0; }
 .alltag { padding-top: clamp(48px, 5vw, 80px); min-width: 0; }
 .alltag__kopf { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-5) var(--space-7); }
 .alltag__einleitung { max-width: 30ch; font-family: var(--font-display); font-size: var(--text-gross); line-height: 1.2; letter-spacing: -0.01em; color: var(--heading); }
@@ -1144,7 +1146,7 @@ html:not(.js) .kopf__menu { display: none; }
 .fall__danach .fall__marke { color: var(--on-dark); }
 .fall__link { grid-area: 3 / 2; justify-self: start; margin: 0 var(--p) var(--p); }
 .fall__link:focus-visible { outline: var(--focus-ring-on-dark); }
-.alltag__link { margin-top: var(--space-4); }
+.alltag__links { margin-top: var(--space-4); display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-6); }
 
 /* Bildschirme: füllen ihre Hälfte */
 .schirm {

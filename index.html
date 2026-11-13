@@ -24,7 +24,7 @@
   <link rel="preload" href="assets/fonts/newsreader-var-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/source-sans-3-var-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/tokens.css?v=20261107.2">
-  <link rel="stylesheet" href="assets/css/site.css?v=20261113.7">
+  <link rel="stylesheet" href="assets/css/site.css?v=20261113.9">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
 {
@@ -302,63 +302,6 @@
                fetchpriority="high">
         </picture>
       </figure>
-    </section>
-
-    <!-- Register 1: Wobei ich unterstütze, der Aufgabenzettel zum Abhaken -->
-    <section class="blatt blatt--bereiche" id="bereiche" aria-labelledby="h-bereiche">
-      <div class="blatt__kante"><h2 class="reiter reiter--titel" id="h-bereiche">Wobei ich unterstütze</h2></div>
-      <div class="bereiche">
-        <div class="bereiche__seite" data-reveal>
-          <p class="bereiche__einleitung">Aufgaben, die in vielen kleinen Betrieben regelmäßig Zeit kosten.</p>
-          <p class="bereiche__zeile">Markiere, was bei dir anfällt. Deine Auswahl wird direkt in deine Anfrage übernommen. Zu jeder Lösung gehört eine Einweisung, sodass du und dein Team sie sicher nutzt.</p>
-          <a class="textlink" href="anwendungsfaelle.html">Beispiele aus kleinen Betrieben</a>
-          <a class="textlink" href="leistungen.html">Alle Leistungen ansehen</a>
-        </div>
-        <div class="zettel" data-reveal>
-          <ul class="zettel__liste" id="aufgaben">
-            <li class="aufgabe" data-reveal-item>
-              <input class="aufgabe__box" type="checkbox" id="b1" name="bereich" value="Dieselben Kundenfragen beantworten" aria-labelledby="h-b1" aria-describedby="t-b1">
-              <label class="aufgabe__flaeche" for="b1" aria-hidden="true"></label>
-              <span class="aufgabe__haken" aria-hidden="true"></span>
-              <h3 id="h-b1">Dieselben Kundenfragen beantworten</h3>
-              <p id="t-b1">Kundenfragen sind schneller beantwortet, Termine und Absagen landen an einer Stelle.</p>
-              <span class="fahne" aria-hidden="true"></span>
-            </li>
-            <li class="aufgabe" data-reveal-item>
-              <input class="aufgabe__box" type="checkbox" id="b2" name="bereich" value="Angebote und Berichte schreiben" aria-labelledby="h-b2" aria-describedby="t-b2">
-              <label class="aufgabe__flaeche" for="b2" aria-hidden="true"></label>
-              <span class="aufgabe__haken" aria-hidden="true"></span>
-              <h3 id="h-b2">Angebote und Berichte schreiben</h3>
-              <p id="t-b2">Angebote, Berichte und Vorlagen entstehen schneller und im eigenen Stil.</p>
-              <span class="fahne" aria-hidden="true"></span>
-            </li>
-            <li class="aufgabe" data-reveal-item>
-              <input class="aufgabe__box" type="checkbox" id="b3" name="bereich" value="Besprechungen und Sprachnotizen festhalten" aria-labelledby="h-b3" aria-describedby="t-b3">
-              <label class="aufgabe__flaeche" for="b3" aria-hidden="true"></label>
-              <span class="aufgabe__haken" aria-hidden="true"></span>
-              <h3 id="h-b3">Besprechungen und Sprachnotizen festhalten</h3>
-              <p id="t-b3">Aus Besprechungen und Sprachnotizen entstehen direkt Aufgaben, Pläne und Listen.</p>
-              <span class="fahne" aria-hidden="true"></span>
-            </li>
-            <li class="aufgabe" data-reveal-item>
-              <input class="aufgabe__box" type="checkbox" id="b4" name="bereich" value="Übergaben bei Urlaub und Einarbeitung" aria-labelledby="h-b4" aria-describedby="t-b4">
-              <label class="aufgabe__flaeche" for="b4" aria-hidden="true"></label>
-              <span class="aufgabe__haken" aria-hidden="true"></span>
-              <h3 id="h-b4">Übergaben bei Urlaub und Einarbeitung</h3>
-              <p id="t-b4">Unterlagen und Abläufe sind schnell gefunden, auch wenn jemand im Urlaub ist oder neu anfängt.</p>
-              <span class="fahne" aria-hidden="true"></span>
-            </li>
-            <li class="aufgabe" data-reveal-item>
-              <input class="aufgabe__box" type="checkbox" id="b5" name="bereich" value="Texte für Website und Social Media" aria-labelledby="h-b5" aria-describedby="t-b5">
-              <label class="aufgabe__flaeche" for="b5" aria-hidden="true"></label>
-              <span class="aufgabe__haken" aria-hidden="true"></span>
-              <h3 id="h-b5">Texte für Website und Social Media</h3>
-              <p id="t-b5">Texte für Website, Social Media und Newsletter entstehen leichter und klingen nach dem eigenen Betrieb.</p>
-              <span class="fahne" aria-hidden="true"></span>
-            </li>
-          </ul>
-        </div>
-      </div>
     </section>
 
     <!-- Register 2: Aus dem Alltag, typische Situationen vorher und danach -->
@@ -663,7 +606,10 @@
             </div>
           </li>
         </ul>
-        <a class="textlink alltag__link" href="#kontakt">So läuft es bei mir auch</a>
+        <div class="alltag__links">
+          <a class="textlink" href="#kontakt">So läuft es bei mir auch</a>
+          <a class="textlink" href="anwendungsfaelle.html">Alle Anwendungsfälle ansehen</a>
+        </div>
       </div>
     </section>
 
@@ -797,9 +743,6 @@
             <label for="f-falle">Dieses Feld bitte leer lassen</label>
             <input type="text" id="f-falle" name="_honeypot" tabindex="-1" autocomplete="off">
           </div>
-          <ul class="coupon__fahnen" aria-label="Markierte Bereiche" hidden></ul>
-          <!-- Markierte Bereiche aus dem Aufgabenzettel; nur gesendet, wenn etwas markiert ist -->
-          <input type="hidden" name="bereiche" value="" disabled>
           <div class="feld">
             <label for="f-name">Name</label>
             <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="f-name-fehler">
@@ -847,6 +790,6 @@
   </footer>
 
   <script src="assets/js/botpoison.js" defer></script>
-  <script src="assets/js/site.js?v=20261112" defer></script>
+  <script src="assets/js/site.js?v=20261113.2" defer></script>
 </body>
 </html>
