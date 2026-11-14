@@ -825,24 +825,15 @@ html:not(.js) .kopf__menu { display: none; }
   .recht__text { grid-column: 2; }
 }
 
-/* ---------- Kontakt: Foto im Anfrageblatt ----------
-   Breit: Foto im Querformat über die Spaltenbreite zwischen Text und Kontaktdaten, LinkedIn-Zeile bündig mit dem Formular.
+/* ---------- Kontakt: Foto im Anfrageblatt (Überarbeitung 4c) ----------
+   Breit: links unter Überschrift, Text und Telefon, im Rahmen wie die übrigen Fotos.
    Schmal: kleines Hochformat rechts neben der Überschrift. */
+/* Breit: Foto füllt die linke Spalte (bis 420 px) und schließt unten mit der Spalte ab */
+.coupon__bild { margin-top: auto; padding-top: var(--space-2); width: 100%; }
+/* Breit: das Aufgabenfeld wächst mit, damit das Formular so hoch ist wie die Spalte mit dem Foto */
 @media (min-width: 901px) {
-  .coupon__links {
-    display: grid; grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "titel" "text" "bild" "telefon";
-    grid-template-rows: auto auto auto 1fr; /* Kontaktdaten unten: die LinkedIn-Zeile schließt mit der letzten Zeile des Formulars ab */
-    gap: var(--space-5); align-items: start;
-  }
-  .coupon__titel { grid-area: titel; }
-  .coupon__text { grid-area: text; }
-  .coupon__telefon { grid-area: telefon; align-self: end; margin-bottom: -14px; } /* Ausgleich für die 44 px hohen Klickflächen der Links: Textzeilen links und rechts enden auf einer Linie */
-  .coupon__bild { grid-area: bild; margin: 0; width: 100%; }
-  .coupon .coupon__bild img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; object-position: 50% 0%; border-radius: var(--radius-media); } /* Querformat: Kopf bis Hände, Kopf vollständig */
-  /* Ist die linke Spalte höher, wächst das Aufgabenfeld mit, damit beide Spalten unten bündig abschließen */
   .coupon__form .feld:has(textarea) { flex: 1 1 auto; }
-  .coupon__form .feld:has(textarea) textarea { flex: 1 1 auto; min-height: 200px; }
+  .coupon__form .feld:has(textarea) textarea { flex: 1 1 auto; min-height: 160px; }
 }
 .coupon__bild img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 0%; border-radius: var(--radius-media); }
 @media (max-width: 900px) {
