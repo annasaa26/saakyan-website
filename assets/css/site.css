@@ -825,15 +825,20 @@ html:not(.js) .kopf__menu { display: none; }
   .recht__text { grid-column: 2; }
 }
 
-/* ---------- Kontakt: Foto im Anfrageblatt (Überarbeitung 4c) ----------
-   Breit: links unter Überschrift, Text und Telefon, im Rahmen wie die übrigen Fotos.
+/* ---------- Kontakt: Foto im Anfrageblatt ----------
+   Breit wie schmal: Foto klein rechts neben der Überschrift, Text und Kontaktdaten darunter über die volle Breite. Das Aufgabenfeld hat eine feste Höhe.
    Schmal: kleines Hochformat rechts neben der Überschrift. */
-/* Breit: Foto füllt die linke Spalte (bis 420 px) und schließt unten mit der Spalte ab */
-.coupon__bild { margin-top: auto; padding-top: var(--space-2); width: 100%; }
-/* Breit: das Aufgabenfeld wächst mit, damit das Formular so hoch ist wie die Spalte mit dem Foto */
 @media (min-width: 901px) {
-  .coupon__form .feld:has(textarea) { flex: 1 1 auto; }
-  .coupon__form .feld:has(textarea) textarea { flex: 1 1 auto; min-height: 160px; }
+  .coupon__links {
+    display: grid; grid-template-columns: minmax(0, 1fr) clamp(150px, 13vw, 190px);
+    grid-template-areas: "titel bild" "text text" "telefon telefon";
+    gap: var(--space-5) var(--space-5); align-content: start; align-items: start;
+  }
+  .coupon__titel { grid-area: titel; align-self: center; }
+  .coupon__text { grid-area: text; }
+  .coupon__telefon { grid-area: telefon; }
+  .coupon__bild { grid-area: bild; margin: 0; width: 100%; }
+  .coupon__form .feld:has(textarea) textarea { min-height: 200px; }
 }
 .coupon__bild img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 0%; border-radius: var(--radius-media); }
 @media (max-width: 900px) {
@@ -959,8 +964,8 @@ html:not(.js) .kopf__menu { display: none; }
 
 .alltag__band {
   margin-top: var(--space-5); max-width: 100%;
-  display: grid; grid-auto-flow: column; grid-auto-columns: 100%;
-  gap: clamp(16px, 2vw, 24px);
+  display: grid; grid-auto-flow: column; grid-auto-columns: 100%; grid-template-rows: auto 1fr auto;
+  gap: 0 clamp(16px, 2vw, 24px);
   overflow-x: auto; overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory; scroll-behavior: smooth;
   padding-bottom: var(--space-5);
@@ -970,7 +975,9 @@ html:not(.js) .kopf__menu { display: none; }
 .fall {
   --p: clamp(24px, 3vw, 44px);
   scroll-snap-align: start; position: relative; /* hält die absolut gesetzten sr-only-Texte im Band */
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr auto;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  /* Zeilen aus dem Band (Subgrid): Text, Bildschirm und Link stehen in allen Karten auf derselben Höhe */
+  grid-row: span 3; grid-template-rows: subgrid; row-gap: 0;
   background: var(--surface); border-radius: var(--radius-card); overflow: hidden;
 }
 /* Petrol-Fläche der Danach-Hälfte; .fall__text und .buehne lösen sich auf, ihre Kinder sitzen direkt im Raster */
@@ -1033,8 +1040,9 @@ html:not(.js) .kopf__menu { display: none; }
 }
 /* Bis 900 px: Vorher oben, Danach direkt darunter auf Petrol; die nächste Karte bleibt angeschnitten */
 @media (max-width: 900px) {
-  .alltag__band { grid-auto-columns: 90%; }
-  .fall { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  /* Alle Karten teilen sich die fünf Zeilen (Subgrid): Die Grenze zwischen Bisher und Mit KI-Lösung liegt in jeder Karte gleich hoch */
+  .alltag__band { grid-auto-columns: 90%; grid-template-rows: repeat(5, auto); }
+  .fall { grid-template-columns: minmax(0, 1fr); grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; }
   .fall::before { grid-column: 1; grid-row: 3 / 6; }
   .fall__vorher { grid-area: 1 / 1; }
   .schirm--vorher { grid-area: 2 / 1; }
@@ -1080,7 +1088,7 @@ html:not(.js) .kopf__menu { display: none; }
 }
 .warum__text p { font-size: var(--text-body); line-height: 1.62; max-width: 60ch; }
 .warum__text p + p { margin-top: var(--space-5); }
-.warum__text p:first-child { font-size: 1.25rem; line-height: 1.55; padding-left: 20px; box-shadow: inset 4px 0 0 var(--accent); } /* taste-skill-ignore: Akzentbalken als Fläche, kein Schatten */
+.warum__text p:first-child { padding-left: 20px; box-shadow: inset 4px 0 0 var(--accent); } /* gleiche Größe wie der übrige Text, nur der Koralle-Strich hebt hervor */ /* taste-skill-ignore: Akzentbalken als Fläche, kein Schatten */
 .warum__text .textlink { margin-top: var(--space-4); }
 .warum__abriss { margin-top: 0; border-top: 0; border-radius: var(--radius-card); grid-template-columns: minmax(0, 1fr); }
 .warum__abriss ::selection { background: var(--bg); color: var(--brand); }
