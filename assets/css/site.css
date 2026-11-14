@@ -839,11 +839,10 @@ html:not(.js) .kopf__menu { display: none; }
   .coupon__text { grid-area: text; }
   .coupon__telefon { grid-area: telefon; align-self: end; margin-bottom: -14px; } /* Ausgleich für die 44 px hohen Klickflächen der Links: Textzeilen links und rechts enden auf einer Linie */
   .coupon__bild { grid-area: bild; margin: 0; width: 100%; }
-  .coupon .coupon__bild img { aspect-ratio: 3 / 2; object-position: 50% 12%; border-radius: var(--radius-media); } /* Querformat: Kopf bis Hände, Kopf vollständig */
+  .coupon .coupon__bild img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; object-position: 50% 0%; border-radius: var(--radius-media); } /* Querformat: Kopf bis Hände, Kopf vollständig */
   /* Ist die linke Spalte höher, wächst das Aufgabenfeld mit, damit beide Spalten unten bündig abschließen */
   .coupon__form .feld:has(textarea) { flex: 1 1 auto; }
   .coupon__form .feld:has(textarea) textarea { flex: 1 1 auto; min-height: 200px; }
-}
 }
 .coupon__bild img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 0%; border-radius: var(--radius-media); }
 @media (max-width: 900px) {
