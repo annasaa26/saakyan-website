@@ -78,8 +78,8 @@ AddCharset utf-8 .html .css .js .txt .xml .svg .json
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
-  # CSP: erlaubt nur eigene Dateien, Botpoison-API und Formspark.
+  # CSP: erlaubt nur eigene Dateien, die eigene Matomo-Statistik (statistik.saakyan.ai), Botpoison-API und Formspark.
   # Der Hash gehört zum Inline-Skript document.documentElement.classList.add('js'); bei Änderung neu berechnen:
   # printf '%s' "document.documentElement.classList.add('js')" | openssl dgst -sha256 -binary | base64
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.botpoison.com https://submit-form.com; form-action 'self' https://submit-form.com; frame-ancestors 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo=' https://statistik.saakyan.ai; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://statistik.saakyan.ai; font-src 'self'; connect-src 'self' https://statistik.saakyan.ai https://api.botpoison.com https://submit-form.com; form-action 'self' https://submit-form.com; frame-ancestors 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
 </IfModule>
