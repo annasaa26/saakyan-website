@@ -1,5 +1,6 @@
-/* saakyan.ai, gemeinsames Skript aller Seiten (Stand 28.10.2026)
-   Menü, Formular (Formspark mit Botpoison), Einblendungen, Fotobewegung.
+/* saakyan.ai, gemeinsames Skript aller Seiten (Stand 17.11.2026)
+   Menü, Formular (Formspark mit Botpoison), Einblendungen, Fotobewegung,
+   Reichweitenmessung mit Matomo (eigener Webspace, ohne Cookies).
    Ohne JS bleibt alles sichtbar und das Formular sendet normal an Formspark. */
 (function () {
   'use strict';
@@ -221,4 +222,22 @@
     document.querySelectorAll('.blatt').forEach(function (el) { el.classList.add('is-da'); });
   }
 
+})();
+
+/* ---------- Reichweitenmessung: Matomo auf statistik.saakyan.ai ----------
+   Ohne Cookies (zusätzlich in Matomo erzwungen), IP wird dort um 2 Bytes gekürzt,
+   keine Geräteabfrage (Bildschirm, Plugins, Client Hints). Beschrieben in datenschutz.html § 8. */
+var _paq = window._paq = window._paq || [];
+_paq.push(['disableCookies']);
+_paq.push(['disableBrowserFeatureDetection']);
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+(function () {
+  var u = 'https://statistik.saakyan.ai/';
+  _paq.push(['setTrackerUrl', u + 'matomo.php']);
+  _paq.push(['setSiteId', '1']);
+  var g = document.createElement('script');
+  g.async = true;
+  g.src = u + 'matomo.js';
+  document.head.appendChild(g);
 })();

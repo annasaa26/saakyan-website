@@ -7,3 +7,6 @@ entwuerfe/
 
 # Branding-Material (LinkedIn-Banner etc.), nicht Teil der Website
 _branding/
+
+# Matomo liegt auf dem Server unter public_html/statistik, nie ins Repo
+statistik/
