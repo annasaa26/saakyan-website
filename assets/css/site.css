@@ -1075,7 +1075,7 @@ html:not(.js) .kopf__menu { display: none; }
 .weg .textlink { margin-top: var(--space-3); }
 
 /* Warum ich: Kurzvorstellung links, Belege rechts */
-.blatt--warum { --c: var(--accent); --ink: var(--on-accent); --x: var(--x-warum); margin-top: var(--section-gap); }
+.blatt--warum { --c: var(--surface); --ink: var(--brand); --x: var(--x-warum); margin-top: var(--section-gap); } /* Sand statt Koralle (19.11.2026): Koralle nur für Handlung, siehe Farbfeedback */
 .warum {
   display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   gap: clamp(32px, 5vw, 80px); align-items: start;
